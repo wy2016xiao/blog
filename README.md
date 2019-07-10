@@ -6,5 +6,5 @@
 
 面试题是从各种地方找来的，原创部分只有解题思路。
 
-推荐一个大神妹子，很多题目都是从这里找来的。 [lydiahallie/javascript-questions](https://github.com/lydiahallie/javascript-questions)
+推荐一个大神，很多题目都是从这里找来的。 [lydiahallie/javascript-questions](https://github.com/lydiahallie/javascript-questions)
 
