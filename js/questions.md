@@ -20,8 +20,6 @@ var的变量提升现象让人难以理解，所以let作为新的关键词纠�
 
 考察：变量声明 es6
 
-参考：
-[阮一峰es6入门](http://es6.ruanyifeng.com/#docs/let)
 </p>
 </details>
 
@@ -57,8 +55,6 @@ for (let i = 0; i < 3; i++) {
 考察：
 js事件循环 作用域
 
-参考：
-[阮一峰es6入门](http://es6.ruanyifeng.com/#docs/let)
 </p>
 </details>
 
@@ -87,8 +83,6 @@ NaN
 
 考察：变量声明 es6 this
 
-参考：
-[阮一峰es6入门](http://es6.ruanyifeng.com/#docs/let)
 </p>
 </details>
 
@@ -364,5 +358,437 @@ sum(1, "2");
 +运算符如果涉及到字符串，会将前后变量进行隐式转换然后进行字符串拼接。
 
 考察：运算符
+</p>
+</details>
+
+
+15.输出是什么？
+```javascript
+let number = 0
+console.log(number++)
+console.log(++number)
+console.log(number)
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+0
+2
+2
+
+一元后自增运算符，是先返回然后自增。
+前自增运算符是先自增再返回。
+
+考察：运算符
+</p>
+</details>
+
+
+16.输出是什么？
+```javascript
+function getPersonInfo(one, two, three) {
+  console.log(one)
+  console.log(two)
+  console.log(three)
+}
+
+const person = 'Lydia'
+const age = 21
+
+getPersonInfo`${person} is ${age} years old`
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+['', ' is ', ' uears old'], 'Lydia', 21
+
+使用标记模板字面量作为参数可以写作funcName``的形式，第一个参数是将字面量以其中的变量作为分隔的数组，后面是按顺序排列的变量。
+特别的，首或位为变量时，会多解析出一个空字符串。
+
+考察：标记模板字面量
+</p>
+</details>
+
+
+17.输出是什么？
+```javascript
+function checkAge(data) {
+  if (data === { age: 18 }) {
+    console.log('You are an adult!')
+  } else if (data == { age: 18 }) {
+    console.log('You are still an adult.')
+  } else {
+    console.log(`Hmm.. You don't have an age I guess`)
+  }
+}
+
+checkAge({ age: 18 })
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+`Hmm.. You don't have an age I guess`
+
+在判断对象相等时，无论是==还是===，都是对他们的引用进行的比较。
+这里的data和{ age: 18 }明显㐊同一引用，所以都不等。
+
+考察：运算符
+</p>
+</details>
+
+
+18.输出是什么？
+```javascript
+function getAge(...args) {
+  console.log(typeof args)
+}
+
+getAge(21)
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+object
+
+扩展运算符基本用法，...args结果为21，那么args就是[21]，typeof [21]为object
+
+考察：运算符
+</p>
+</details>
+
+
+19.输出是什么？
+```javascript
+function getAge() {
+  'use strict'
+  age = 21
+  console.log(age)
+}
+
+getAge()
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+ReferenceError: age is not defined
+
+这里在函数内部使用了严格模式，age = 21这种写法不会再被认为是声明了全局变量，在这里只会被认为是给age变量赋值。然而我们从来没有声明过age变量，所以报错了。
+
+考察：严格模式
+</p>
+</details>
+
+20.输出是什么？
+```javascript
+const sum = eval('10*10+5')
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+105
+
+考察：eval
+</p>
+</details>    
+
+
+21. cool_secret 可访问多长时间？
+```javascript
+sessionStorage.setItem('cool_secret', 123)
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+当用户关掉标签页时。
+
+考察：sessionStorage
+</p>
+</details>
+
+
+22.输出是什么？
+```javascript
+const obj = { 1: 'a', 2: 'b', 3: 'c' }
+const set = new Set([1, 2, 3, 4, 5])
+
+obj.hasOwnProperty('1')
+obj.hasOwnProperty(1)
+set.has('1')
+set.has(1)
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+true true false true
+
+所有对象的键，在底层都是字符串。所以对象访问也可以使用obj['1']的形式。
+set和对象不一样，在set中没有字符串1的成员。
+同理，数组[1,2,3,4,5]也没有成员'1'。
+
+考察：set object
+</p>
+</details>
+
+
+23.输出是什么？
+```javascript
+const obj = { a: 'one', b: 'two', a: 'three' }
+console.log(obj)
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+{ a: "three", b: "two" }
+
+这里在第三个属性上的a覆盖了第一个属性a。
+
+考察：object
+</p>
+</details>
+
+
+24.JavaScript 全局执行上下文为你做了两件事：全局对象和 this 关键字。
+* A: true
+* B: false
+* C: it depends
+
+<details><summary><b>答案</b></summary>
+<p>
+A
+
+考察：执行上下文
+</p>
+</details>
+
+
+25.输出是什么？
+```javascript
+for (let i = 1; i < 5; i++) {
+  if (i === 3) continue
+  console.log(i)
+}
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+1 2 4
+
+考察：continue关键字
+</p>
+</details>
+
+
+26.输出是什么？
+```javascript
+String.prototype.giveLydiaPizza = () => {
+  return 'Just give Lydia pizza already!'
+}
+
+const name = 'Lydia'
+
+name.giveLydiaPizza()
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+'Just give Lydia pizza already!'
+
+所有对象都可以访问其原型上的方法。
+
+考察：原型链
+</p>
+</details>
+
+
+27.输出是什么？
+```javascript
+const a = {}
+const b = { key: 'b' }
+const c = { key: 'c' }
+
+a[b] = 123
+a[c] = 456
+
+console.log(a[b])
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+456
+
+对象的键会被自动转换成为字符串。
+这里b和c被转换成字符串成为'[object object]'。
+即：
+a['[object object]'] = 123
+a['[object object]'] = 456
+
+考察：object
+</p>
+</details>
+
+
+28.输出是什么？
+```javascript
+const foo = () => console.log('First')
+const bar = () => setTimeout(() => console.log('Second'))
+const baz = () => console.log('Third')
+
+bar()
+foo()
+baz()
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+First Third Second
+
+setTimeout中的回调会在第二个任务队列中执行。在第一个任务队列中，只会执行setTimeout。
+
+考察：js事件循环
+</p>
+</details>
+
+
+29.当点击按钮时，event.target是什么？
+```html
+<div onclick="console.log('first div')">
+  <div onclick="console.log('second div')">
+    <button onclick="console.log('button')">
+      Click!
+    </button>
+  </div>
+</div>
+```
+* A: Outer div
+* B: Inner div
+* C: button
+* D: 一个包含所有嵌套元素的数组。
+<details><summary><b>答案</b></summary>
+<p>
+C
+
+有一个简单办法来确认event.target，那就是寻找到那个导致事件最深的元素。
+
+考察：浏览器事件机制
+</p>
+</details>
+
+
+30.当您单击该段落时，日志输出是什么？
+```html
+<div onclick="console.log('div')">
+  <p onclick="console.log('p')">
+    Click here!
+  </p>
+</div>
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+div p div 
+
+默认情况下，事件处理程序在冒泡阶段执行。除非useCapture设置为true。
+
+考察：浏览器事件机制
+</p>
+</details>
+
+
+31.输出是什么？
+```javascript
+const person = { name: 'Lydia' }
+
+function sayHi(age) {
+  console.log(`${this.name} is ${age}`)
+}
+
+sayHi.call(person, 21)
+sayHi.bind(person, 21)
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+Lydia is 21
+function
+
+call和bind都是改变this指向。
+不同的是bind是返回一个函数，call是直接就调用了。
+
+考察：call bind apply
+</p>
+</details>
+
+
+32.下面哪些值是falsy?
+```javascript
+0
+new Number(0)
+('')
+(' ')
+new Boolean(false)
+undefined
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+0, (''), (' '), undefined
+
+构造函数声明的值，都是truthy
+
+考察：数据转换
+</p>
+</details>
+
+
+33.输出是什么？
+```javascript
+console.log(typeof typeof 1)
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+string
+
+typeof 1 返回字符串"number"。typeof字符串返回 "string"。
+
+考察：typeof
+</p>
+</details>
+
+
+34.输出是什么？
+```javascript
+const numbers = [1, 2, 3]
+numbers[10] = 11
+console.log(numbers)
+``` 
+
+<details><summary><b>答案</b></summary>
+<p>
+[1, 2, 3, 7 x empty, 11]
+
+如果设置了超过长度的值，会自动填充empty在中间。
+他们的值为undefined（没有什么值是empty，除非是个字符串）。
+</p>
+</details>
+
+
+35.输出是什么？
+```javascript
+function sayHi() {
+  return (() => 0)()
+}
+
+typeof sayHi()
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+number
+
+箭头函数的函数体如果没有花括号包裹，就是默认返回函数体的值。
+sayHi函数返回数字0
+
+考察：箭头函数
 </p>
 </details>
