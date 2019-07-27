@@ -1175,7 +1175,351 @@ console.log(Object.keys(person));
 <p>
 { name: "Lydia", age: 21 }, ["name"]
 
-defineProperty声明的属性默认不可枚举，enumerable为false。
+defineProperty声明的属性默认不可枚举，enumerable为false。不止enumerable,writable、configurable默认都为false。
 Object.keys只会返回可枚举的属性。
+</p>
+</details>
+
+
+58.输出是什么？
+```javascript
+const settings = {
+  username: "lydiahallie",
+  level: 19,
+  health: 90
+};
+
+const data = JSON.stringify(settings, ["level", "health"]);
+console.log(data);
+```
+<details><summary><b>答案</b></summary>
+<p>
+"{"level":19, "health":90}"
+
+JSON.stringify的第二个参数如果是数组，那么就只有包含在数组中的属性将会被转化为字符串。
+</p>
+</details>
+
+
+59.输出是什么？
+```javascript
+let num = 10;
+
+const increaseNumber = () => num++;
+const increasePassedNumber = number => number++;
+
+const num1 = increaseNumber();
+const num2 = increasePassedNumber(num1);
+
+console.log(num1);
+console.log(num2);
+```
+<details><summary><b>答案</b></summary>
+<p>
+10 10
+
+++后置，先返回再相加。
+</p>
+</details>
+
+
+60.输出是什么？
+```javascript
+const value = { number: 10 };
+
+const multiply = (x = { ...value }) => {  
+  console.log(x.number *= 2);
+};
+
+multiply();
+multiply();
+multiply(value);
+multiply(value);
+```
+<details><summary><b>答案</b></summary>
+<p>
+20, 20, 20, 40
+
+前两次没有传参数的情况下使用默认值。这里对value进行了结构，实为值传递。
+</p>
+</details>
+
+
+61.输出是什么？
+```javascript
+[1, 2, 3, 4].reduce((x, y) => console.log(x, y));
+```
+<details><summary><b>答案</b></summary>
+<p>
+1 2  
+undefined 3 
+undefined 4
+
+reduce如果没有第二个参数，默认从第二次循环开始。所以第一次打印为1 2。
+</p>
+</details>
+
+
+62.使用哪个构造函数可以成功继承Dog类?
+```javascript
+class Dog {
+  constructor(name) {
+    this.name = name;
+  }
+};
+
+class Labrador extends Dog {
+  // 1 
+  constructor(name, size) {
+    this.size = size;
+  }
+  // 2
+  constructor(name, size) {
+    super(name);
+    this.size = size;
+  }
+  // 3
+  constructor(size) {
+    super(name);
+    this.size = size;
+  }
+  // 4 
+  constructor(name, size) {
+    this.name = name;
+    this.size = size;
+  }
+
+};
+```
+<details><summary><b>答案</b></summary>
+<p>
+2
+
+在使用super之前无法访问this关键字
+super实际上是调用父类构造函数，所以需要有name参数。
+</p>
+</details>
+
+
+63.输出是什么？
+```javascript
+// index.js
+console.log('running index.js');
+import { sum } from './sum.js';
+console.log(sum(1, 2));
+
+// sum.js
+console.log('running sum.js');
+export const sum = (a, b) => a + b;
+```
+<details><summary><b>答案</b></summary>
+<p>
+running sum.js, running index.js, 3
+
+es6的import模块化方案，是在编译阶段执行的。所以sum.js中的内容会先执行。
+</p>
+</details>
+
+
+64.输出是什么？
+```javascript
+console.log(Number(2) === Number(2))
+console.log(Boolean(false) === Boolean(false))
+console.log(Symbol('foo') === Symbol('foo'))
+```
+<details><summary><b>答案</b></summary>
+<p>
+true true false
+
+Symbol符号是独一无二的。
+Number函数是将参数转换为数字，和new Number()不同，要注意区别。
+</p>
+</details>
+
+
+65.输出是什么？
+```javascript
+const name = "Lydia Hallie"
+console.log(name.padStart(13))
+console.log(name.padStart(2))
+```
+<details><summary><b>答案</b></summary>
+<p>
+' Lydia Hallie'
+'Lydia Hallie'
+
+考察padStart用法，如果大于字符长度，则填充，不穿第二个参数则用空格填充。
+如果小于字符长度，不做填充，返回原字符串。
+</p>
+</details>
+
+
+66.输出是什么？
+```javascript
+console.log("🥑" + "💻");
+```
+<details><summary><b>答案</b></summary>
+<p>
+"💻🥑"
+
+连字符将字符串拼接
+</p>
+</details>
+
+
+67.如何能打印出console后面注释掉的值？
+```javascript
+function* startGame() {
+  const answer = yield "Do you love JavaScript?";
+  if (answer !== "Yes") {
+    return "Oh wow... Guess we're gone here";
+  }
+  return "JavaScript loves you back ❤️";
+}
+
+const game = startGame();
+console.log(/* 1 */); // Do you love JavaScript?
+console.log(/* 2 */); // JavaScript loves you back ❤️
+```
+<details><summary><b>答案</b></summary>
+<p>
+game.next().value
+game.next("Yes").value
+
+next中的参数会在yield中返回，这里要想answer被赋值为'yes'，就要给next函数传入'yes'。
+</p>
+</details>
+
+
+68.输出是什么？
+```javascript
+console.log(String.raw`Hello\nworld`);
+```
+<details><summary><b>答案</b></summary>
+<p>
+'Hello\nworld'
+
+String.raw函数是用来获取一个模板字符串的原始字符串的，它返回一个字符串，其中忽略了转义符（\n，\v，\t等）。
+可以理解为打印出来的斜杠就是斜杠，不会被转义成为换行符等。
+</p>
+</details>
+
+
+69.输出是什么？
+```javascript
+async function getData() {
+  return await Promise.resolve("I made it!");
+}
+
+const data = getData();
+console.log(data);
+```
+<details><summary><b>答案</b></summary>
+<p>
+Promise {<pending>}
+
+这里有个误导点，getData是一个异步函数，异步函数始终返回一个promise，这里要么data.then()，要么写进一个异步函数中使用await去处理。
+如：
+async function a() {
+  const data = await getData();
+  console.log(data);
+}
+a()
+</p>
+</details>
+
+
+70.输出是什么？
+```javascript
+function addToList(item, list) {
+  return list.push(item);
+}
+
+const result = addToList("apple", ["banana"]);
+console.log(result);
+```
+<details><summary><b>答案</b></summary>
+<p>
+2
+
+push方法，返回的并不是操作之后的数组，而是操作之后的数组长度。
+</p>
+</details>
+
+
+71.输出是什么？
+```javascript
+const box = { x: 10, y: 20 };
+
+Object.freeze(box);
+
+const shape = box;
+shape.x = 100;
+console.log(shape)
+```
+<details><summary><b>答案</b></summary>
+<p>
+{ x: 10, y: 20 }
+
+Object.freeze使得无法添加、删除或修改对象的属性（除非属性的值是另一个对象）。
+</p>
+</details>
+
+
+72.输出是什么？
+```javascript
+const { name: myName } = { name: "Lydia" };
+
+console.log(name);
+```
+<details><summary><b>答案</b></summary>
+<p>
+ReferenceError
+
+这里是myName = "Lydia"，跟name没关系，name没有被声明。
+</p>
+</details>
+
+
+73.以下是个纯函数吗？
+```javascript
+function sum(a, b) {
+  return a + b;
+}
+```
+<details><summary><b>答案</b></summary>
+<p>
+是
+
+纯函数一种若输入参数相同，则永远会得到相同输出的函数。
+</p>
+</details>
+
+
+74.输出是什么？
+```javascript
+const add = () => {
+  const cache = {};
+  return num => {
+    if (num in cache) {
+      return `From cache! ${cache[num]}`;
+    } else {
+      const result = num + 10;
+      cache[num] = result;
+      return `Calculated! ${result}`;
+    }
+  };
+};
+
+const addFunction = add();
+console.log(addFunction(10));
+console.log(addFunction(10));
+console.log(addFunction(5 * 2));
+```
+<details><summary><b>答案</b></summary>
+<p>
+Calculated! 20 From cache! 20 From cache! 20
+
+考察闭包理解，key in object中in关键字。
 </p>
 </details>
