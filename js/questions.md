@@ -792,3 +792,271 @@ sayHi函数返回数字0
 考察：箭头函数
 </p>
 </details>
+
+
+36.输出是什么？
+```javascript
+(() => {
+  let x, y
+  try {
+    throw new Error()
+  } catch (x) {
+    (x = 1), (y = 2)
+    console.log(x)
+  }
+  console.log(x)
+  console.log(y)
+})()
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+1 undefined 2
+
+catch中的x属于catch块作用域中的x，这里的赋值不会影响外层作用域的x。而由于catch块中没有y，这里的赋值是赋值给了外层作用域的y。
+
+考察：作用域
+</p>
+</details>
+
+
+37.JavaScript 中的一切都是？
+* A: 基本类型与对象
+* B: 函数与对象
+* C: 只有对象
+* D: 数字与对象
+
+<details><summary><b>答案</b></summary>
+<p>
+A
+
+考察：变量类型
+</p>
+</details>
+
+
+38.输出是什么？
+```javascript
+[[0, 1], [2, 3]].reduce(
+  (acc, cur) => {
+    return acc.concat(cur)
+  },
+  [1, 2]
+)
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+C
+
+考察：数组
+</p>
+</details>
+
+
+39.输出是什么？
+```javascript
+!!null
+!!''
+!!1
+```
+
+<details><summary><b>答案</b></summary>
+<p>
+false false true
+
+6种falsy值：
+* undefined
+* null
+* NaN
+* 0
+* '' (empty string)
+* false
+
+考察：隐式转换
+</p>
+</details>
+
+
+40.setInterval 方法的返回值是什么？
+```javascript
+setInterval(() => console.log('Hi'), 1000)
+```
+* A: 一个唯一的id
+* B: 该方法指定的毫秒数
+* C: 传递的函数
+* D: undefined
+<details><summary><b>答案</b></summary>
+<p>
+A
+
+setInterval返回一个唯一的id，这个id可以用来clearInterval清除定时。
+
+考察：setInterval
+</p>
+</details>
+
+
+41.输出是什么？
+```javascript
+[...'Lydia']
+```
+<details><summary><b>答案</b></summary>
+<p>
+["L", "y", "d", "i", "a"]
+
+考察：运算符
+</p>
+</details>
+
+
+42.输出是什么？
+```javascript
+function* generator(i) {
+  yield i;
+  yield i * 2;
+}
+
+const gen = generator(10);
+
+console.log(gen.next().value);
+console.log(gen.next().value);
+```
+<details><summary><b>答案</b></summary>
+<p>
+10 20
+
+考察：es6 generator函数
+</p>
+</details>
+
+
+43.返回值是什么？
+```javascript
+const firstPromise = new Promise((res, rej) => {
+  setTimeout(res, 500, "one");
+});
+
+const secondPromise = new Promise((res, rej) => {
+  setTimeout(res, 100, "two");
+});
+
+Promise.race([firstPromise, secondPromise]).then(res => console.log(res));
+```
+<details><summary><b>答案</b></summary>
+<p>
+two
+
+考察：es6 promise
+</p>
+</details>
+
+
+44.输出是什么？
+```javascript
+let person = { name: "Lydia" };
+const members = [person];
+person = null;
+
+console.log(members);
+```
+<details><summary><b>答案</b></summary>
+<p>
+[{ name: "Lydia" }]
+
+这里的person放的只是一个指向{ name: "Lydia" }对象的内存地址（指针）。当给person重新赋值时，对象依旧存在，只是person不再代表对象的地址而已。
+members数组中放的也是指针，所以不管person变量被赋值成什么，数组依旧不变。
+
+考察：值引用和地址引用
+</p>
+</details>
+
+
+45.输出是什么？
+```javascript
+const person = {
+  name: "Lydia",
+  age: 21
+};
+
+for (const item in person) {
+  console.log(item);
+}
+```
+<details><summary><b>答案</b></summary>
+<p>
+'name' 'age'
+</p>
+</details>
+
+
+46.输出是什么？
+```javascript
+console.log(3 + 4 + "5");
+```
+<details><summary><b>答案</b></summary>
+<p>
+'75'
+
+考察：运算符
+</p>
+</details>
+
+
+47.num的值是什么？
+```javascript
+const num = parseInt("7*6", 10);
+```
+<details><summary><b>答案</b></summary>
+<p>
+7
+
+parseInt从左往右解析，在遇到第一个非数字字符时停下并返回。
+
+考察：parseInt
+</p>
+</details>
+
+
+48.输出是什么？
+```javascript
+[1, 2, 3].map(num => {
+  if (typeof num === "number") return;
+  return num * 2;
+});
+```
+<details><summary><b>答案</b></summary>
+<p>
+[undefined,undefined,undefined]
+
+这里的return;其实就是return undefined。
+
+考察：return关键字
+</p>
+</details>
+
+
+49.输出是什么？
+```javascript
+function getInfo(member, year) {
+  member.name = "Lydia";
+  year = "1998";
+}
+
+const person = { name: "Sarah" };
+const birthYear = "1997";
+
+getInfo(person, birthYear);
+
+console.log(person, birthYear);
+```
+<details><summary><b>答案</b></summary>
+<p>
+{ name: "Lydia" }, "1997"
+
+在函数传参时，分为引用传递和值传递。
+在这里，对象是引用传递，传递的是指向person对象内存中的地址（指针）。所以改变函数中的member对象的name时，其实就是在改变person所指向的那个对象{ name: "Sarah" }中的name。
+
+考察：函数传参
+</p>
+</details>
