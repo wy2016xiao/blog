@@ -1523,3 +1523,145 @@ Calculated! 20 From cache! 20 From cache! 20
 考察闭包理解，key in object中in关键字。
 </p>
 </details>
+
+
+75.输出是什么？
+```javascript
+const myLifeSummedUp = ["☕", "💻", "🍷", "🍫"]
+
+for (let item in myLifeSummedUp) {
+  console.log(item)
+}
+
+for (let item of myLifeSummedUp) {
+  console.log(item)
+}
+```
+<details><summary><b>答案</b></summary>
+<p>
+0 1 2 3 
+"☕" "💻" "🍷" "🍫"
+
+考察for in 和for of的区别。
+</p>
+</details>
+
+
+76.输出是什么？
+```javascript
+const list = [1 + 2, 1 * 2, 1 / 2]
+console.log(list)
+```
+<details><summary><b>答案</b></summary>
+<p>
+[3, 2, 0.5]
+
+数组中如果是运算（非js标准数据类型），会先计算出结果。
+例如：
+let a =  [console.log(123)]
+这里会打印123并且a = [undefined]
+</p>
+</details>
+
+
+77.输出是什么？
+```javascript
+function sayHi(name) {
+  return `Hi there, ${name}`
+}
+
+console.log(sayHi())
+```
+<details><summary><b>答案</b></summary>
+<p>
+Hi there, undefined
+</p>
+</details>
+
+
+78.输出是什么？
+```javascript
+var status = "😎"
+
+setTimeout(() => {
+  const status = "😍"
+
+  const data = {
+    status: "🥑",
+    getStatus() {
+      return this.status
+    }
+  }
+
+  console.log(data.getStatus())
+  console.log(data.getStatus.call(this))
+}, 0)
+```
+<details><summary><b>答案</b></summary>
+<p>
+"🥑"
+"😎"
+
+注意这里声明setTimeout时，用的是箭头函数。在箭头函数中，this指向的是代码书写时的外层作用域，既window。
+</p>
+</details>
+
+
+79.输出是什么？
+```javascript
+const person = {
+  name: "Lydia",
+  age: 21
+}
+
+let city = person.city
+city = "Amsterdam"
+
+console.log(person)
+```
+<details><summary><b>答案</b></summary>
+<p>
+{
+  name: "Lydia",
+  age: 21
+}
+
+city这里的值传递，和原来的person对象已经没有关系。
+</p>
+</details>
+
+
+80.输出是什么？
+```javascript
+function checkAge(age) {
+  if (age < 18) {
+    const message = "Sorry, you're too young."
+  } else {
+    const message = "Yay! You're old enough!"
+  }
+
+  return message
+}
+
+console.log(checkAge(21))
+```
+<details><summary><b>答案</b></summary>
+<p>
+ReferenceError
+
+const声明的变量只在if的{}中能访问，在checkAge作用域中不存在message变量，所以报错。
+</p>
+</details>
+
+
+81.下面代码会打印什么日志？
+```javascript
+fetch('https://www.website.com/api/user/1')
+  .then(res => res.json())
+  .then(res => console.log(res))
+```
+<details><summary><b>答案</b></summary>
+<p>
+前一个回调的结果，既res.json()
+</p>
+</details>
