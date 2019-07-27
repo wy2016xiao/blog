@@ -18,7 +18,6 @@ undefined  ReferenceError
 
 var的变量提升现象让人难以理解，所以let作为新的关键词纠正了这一现象。在这里是不会出现变量提升现象的（包括const关键词）。
 
-考察：变量声明 es6
 
 </p>
 </details>
@@ -52,7 +51,6 @@ for (let i = 0; i < 3; i++) {
 >你可能会问，如果每一轮循环的变量i都是重新声明的，那它怎么知道上一轮循环的值，从而计算出本轮循环的值？这是因为 JavaScript 引擎内部会记住上一轮循环的值，初始化本轮的变量i时，就在上一轮循环的基础上进行计算。
 
 
-考察：
 js事件循环 作用域
 
 </p>
@@ -81,7 +79,6 @@ NaN
 第一个console，this指向的是调用者shape对象，既这里的this.radius是10
 第二个console要注意的是这里函数的定义方式。这里函数是通过箭头函数定义的，箭头函数中的this所指向的是定义时环境，在这里this其实是window，所以this.radius其实是undefined。所以数学计算中，如果出现非数学值，则一律返回NaN。
 
-考察：变量声明 es6 this
 
 </p>
 </details>
@@ -116,7 +113,6 @@ false
 |!'string'|false|
 |!undefined|true|
 |!NaN|true|
-考察：隐式类型转换
 
 </p>
 </details>
@@ -144,7 +140,6 @@ A
 
 js中对象的属性除了用.运算符取值之外，还可以使用类似数组的形式（object[key]）。
 
-考察：对象
 </p>
 </details>
 
@@ -166,7 +161,6 @@ console.log(d.greeting);
 js中，对象类型赋值其实是赋值的指针。这里d、c都是指针，指向同一块存有{ greeting: "hey!" }对象的内存空间。
 所以这里改变c.greeting其实也改变了d.greeting。
 
-考察：js变量引用
 </p>
 </details>
 
@@ -192,7 +186,6 @@ new Number(3)返回的，其实是一个对象（Object.prototype.toString(a) ==
 ==运算符有隐式类型转换，所以b在这里被转换成Number类型的数字。a == b
 ===则没有这种转换，由于变量类型不同，a和b，b和c都不等。
 
-考察：js变量引用 变量声明
 </p>
 </details>
 
@@ -220,7 +213,6 @@ TypeError
 
 static关键字定义的函数无法被实例调用。
 
-考察：类
 </p>
 </details>
 
@@ -240,7 +232,6 @@ console.log(greetign)
 在js中，如果使用let/var等关键字，引擎会自动将其声明为全局变量。
 这里的greetign是全局变量，并且被赋值为{}
 
-考察：类
 </p>
 </details>
 
@@ -265,7 +256,6 @@ A
 函数也是对象，所以是可以给一个函数添加属性的。
 其实函数被声明出来后本身也是有各种属性的。length arguments name等
 
-考察：函数
 </p>
 </details>
 
@@ -292,7 +282,6 @@ A
 函数也是对象，所以是可以给一个函数添加属性的。
 其实函数被声明出来后本身也是有各种属性的。length arguments name等
 
-考察：函数
 </p>
 </details>
 
@@ -320,7 +309,6 @@ undefined
 第二个console是打印出了函数Person的返回
 函数Person实际上没有返回，所以是undefined
 
-考察：类 函数
 </p>
 </details>
 
@@ -337,7 +325,6 @@ D
 
 浏览器事件是先由根元素向下传播到事件元素（捕获），再由事件元素传回根元素（冒泡）。
 
-考察：浏览器事件机制
 </p>
 </details>
 
@@ -357,7 +344,6 @@ sum(1, "2");
 
 +运算符如果涉及到字符串，会将前后变量进行隐式转换然后进行字符串拼接。
 
-考察：运算符
 </p>
 </details>
 
@@ -379,7 +365,6 @@ console.log(number)
 一元后自增运算符，是先返回然后自增。
 前自增运算符是先自增再返回。
 
-考察：运算符
 </p>
 </details>
 
@@ -405,7 +390,6 @@ getPersonInfo`${person} is ${age} years old`
 使用标记模板字面量作为参数可以写作funcName``的形式，第一个参数是将字面量以其中的变量作为分隔的数组，后面是按顺序排列的变量。
 特别的，首或位为变量时，会多解析出一个空字符串。
 
-考察：标记模板字面量
 </p>
 </details>
 
@@ -432,7 +416,6 @@ checkAge({ age: 18 })
 在判断对象相等时，无论是==还是===，都是对他们的引用进行的比较。
 这里的data和{ age: 18 }明显㐊同一引用，所以都不等。
 
-考察：运算符
 </p>
 </details>
 
@@ -452,7 +435,6 @@ object
 
 扩展运算符基本用法，...args结果为21，那么args就是[21]，typeof [21]为object
 
-考察：运算符
 </p>
 </details>
 
@@ -474,7 +456,6 @@ ReferenceError: age is not defined
 
 这里在函数内部使用了严格模式，age = 21这种写法不会再被认为是声明了全局变量，在这里只会被认为是给age变量赋值。然而我们从来没有声明过age变量，所以报错了。
 
-考察：严格模式
 </p>
 </details>
 
@@ -487,7 +468,6 @@ const sum = eval('10*10+5')
 <p>
 105
 
-考察：eval
 </p>
 </details>    
 
@@ -501,7 +481,6 @@ sessionStorage.setItem('cool_secret', 123)
 <p>
 当用户关掉标签页时。
 
-考察：sessionStorage
 </p>
 </details>
 
@@ -525,7 +504,6 @@ true true false true
 set和对象不一样，在set中没有字符串1的成员。
 同理，数组[1,2,3,4,5]也没有成员'1'。
 
-考察：set object
 </p>
 </details>
 
@@ -542,7 +520,6 @@ console.log(obj)
 
 这里在第三个属性上的a覆盖了第一个属性a。
 
-考察：object
 </p>
 </details>
 
@@ -556,7 +533,6 @@ console.log(obj)
 <p>
 A
 
-考察：执行上下文
 </p>
 </details>
 
@@ -573,7 +549,6 @@ for (let i = 1; i < 5; i++) {
 <p>
 1 2 4
 
-考察：continue关键字
 </p>
 </details>
 
@@ -595,7 +570,6 @@ name.giveLydiaPizza()
 
 所有对象都可以访问其原型上的方法。
 
-考察：原型链
 </p>
 </details>
 
@@ -622,7 +596,6 @@ console.log(a[b])
 a['[object object]'] = 123
 a['[object object]'] = 456
 
-考察：object
 </p>
 </details>
 
@@ -644,7 +617,6 @@ First Third Second
 
 setTimeout中的回调会在第二个任务队列中执行。在第一个任务队列中，只会执行setTimeout。
 
-考察：js事件循环
 </p>
 </details>
 
@@ -669,7 +641,6 @@ C
 
 有一个简单办法来确认event.target，那就是寻找到那个导致事件最深的元素。
 
-考察：浏览器事件机制
 </p>
 </details>
 
@@ -689,7 +660,6 @@ div p div
 
 默认情况下，事件处理程序在冒泡阶段执行。除非useCapture设置为true。
 
-考察：浏览器事件机制
 </p>
 </details>
 
@@ -714,7 +684,6 @@ function
 call和bind都是改变this指向。
 不同的是bind是返回一个函数，call是直接就调用了。
 
-考察：call bind apply
 </p>
 </details>
 
@@ -735,7 +704,6 @@ undefined
 
 构造函数声明的值，都是truthy
 
-考察：数据转换
 </p>
 </details>
 
@@ -751,7 +719,6 @@ string
 
 typeof 1 返回字符串"number"。typeof字符串返回 "string"。
 
-考察：typeof
 </p>
 </details>
 
@@ -789,7 +756,6 @@ number
 箭头函数的函数体如果没有花括号包裹，就是默认返回函数体的值。
 sayHi函数返回数字0
 
-考察：箭头函数
 </p>
 </details>
 
@@ -815,7 +781,6 @@ sayHi函数返回数字0
 
 catch中的x属于catch块作用域中的x，这里的赋值不会影响外层作用域的x。而由于catch块中没有y，这里的赋值是赋值给了外层作用域的y。
 
-考察：作用域
 </p>
 </details>
 
@@ -830,7 +795,6 @@ catch中的x属于catch块作用域中的x，这里的赋值不会影响外层�
 <p>
 A
 
-考察：变量类型
 </p>
 </details>
 
@@ -849,7 +813,6 @@ A
 <p>
 C
 
-考察：数组
 </p>
 </details>
 
@@ -873,7 +836,6 @@ false false true
 * '' (empty string)
 * false
 
-考察：隐式转换
 </p>
 </details>
 
@@ -892,7 +854,6 @@ A
 
 setInterval返回一个唯一的id，这个id可以用来clearInterval清除定时。
 
-考察：setInterval
 </p>
 </details>
 
@@ -905,7 +866,6 @@ setInterval返回一个唯一的id，这个id可以用来clearInterval清除定�
 <p>
 ["L", "y", "d", "i", "a"]
 
-考察：运算符
 </p>
 </details>
 
@@ -926,7 +886,6 @@ console.log(gen.next().value);
 <p>
 10 20
 
-考察：es6 generator函数
 </p>
 </details>
 
@@ -947,7 +906,6 @@ Promise.race([firstPromise, secondPromise]).then(res => console.log(res));
 <p>
 two
 
-考察：es6 promise
 </p>
 </details>
 
@@ -967,7 +925,6 @@ console.log(members);
 这里的person放的只是一个指向{ name: "Lydia" }对象的内存地址（指针）。当给person重新赋值时，对象依旧存在，只是person不再代表对象的地址而已。
 members数组中放的也是指针，所以不管person变量被赋值成什么，数组依旧不变。
 
-考察：值引用和地址引用
 </p>
 </details>
 
@@ -998,7 +955,6 @@ console.log(3 + 4 + "5");
 <p>
 '75'
 
-考察：运算符
 </p>
 </details>
 
@@ -1013,7 +969,6 @@ const num = parseInt("7*6", 10);
 
 parseInt从左往右解析，在遇到第一个非数字字符时停下并返回。
 
-考察：parseInt
 </p>
 </details>
 
@@ -1031,7 +986,6 @@ parseInt从左往右解析，在遇到第一个非数字字符时停下并返回
 
 这里的return;其实就是return undefined。
 
-考察：return关键字
 </p>
 </details>
 
@@ -1057,6 +1011,171 @@ console.log(person, birthYear);
 在函数传参时，分为引用传递和值传递。
 在这里，对象是引用传递，传递的是指向person对象内存中的地址（指针）。所以改变函数中的member对象的name时，其实就是在改变person所指向的那个对象{ name: "Sarah" }中的name。
 
-考察：函数传参
+</p>
+</details>
+
+
+50.输出是什么？
+```javascript
+function greeting() {
+  throw "Hello world!";
+}
+
+function sayHi() {
+  try {
+    const data = greeting();
+    console.log("It worked!", data);
+  } catch (e) {
+    console.log("Oh no an error!", e);
+  }
+}
+
+sayHi();
+```
+<details><summary><b>答案</b></summary>
+<p>
+"Oh no an error: Hello world!
+
+</p>
+</details>
+
+
+51.输出是什么？
+```javascript
+(() => {
+  let x = (y = 10);
+})();
+
+console.log(typeof x);
+console.log(typeof y);
+```
+<details><summary><b>答案</b></summary>
+<p>
+number number
+
+y = 10返回10，这里相当于y = 10;let x = 10;
+
+</p>
+</details>
+
+
+52.输出是什么？
+```javascript
+class Dog {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+Dog.prototype.bark = function() {
+  console.log(`Woof I am ${this.name}`);
+};
+
+const pet = new Dog("Mara");
+
+pet.bark();
+
+delete Dog.prototype.bark;
+
+pet.bark();
+```
+<details><summary><b>答案</b></summary>
+<p>
+Woof I am Mara
+TypeError
+
+</p>
+</details>
+
+
+53.输出是什么？
+```javascript
+// counter.js
+let counter = 10;
+export default counter;
+```
+```javascript
+// index.js
+import myCounter from "./counter";
+
+myCounter += 1;
+
+console.log(myCounter);
+```
+<details><summary><b>答案</b></summary>
+<p>
+Error
+
+es6的模块定义规定引入的模块是只读的。
+
+考察；es6
+</p>
+</details>
+
+
+54.输出是什么？
+```javascript
+const name = "Lydia";
+age = 21;
+
+console.log(delete name);
+console.log(delete age);
+```
+<details><summary><b>答案</b></summary>
+<p>
+false true
+
+delete关键字返回true false来判断是否删除成功。
+这里name由const关键字定义，无法删除。
+
+</p>
+</details>
+
+
+55.输出是什么？
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+const [y] = numbers;
+
+console.log(y);
+```
+<details><summary><b>答案</b></summary>
+<p>
+1
+
+</p>
+</details>
+
+
+56.输出是什么？
+```javascript
+const user = { name: "Lydia", age: 21 };
+const admin = { admin: true, ...user };
+
+console.log(admin);
+```
+<details><summary><b>答案</b></summary>
+<p>
+{ admin: true, name: "Lydia", age: 21 }
+
+</p>
+</details>
+
+
+57.输出是什么？
+```javascript
+const person = { name: "Lydia" };
+
+Object.defineProperty(person, "age", { value: 21 });
+
+console.log(person);
+console.log(Object.keys(person));
+```
+<details><summary><b>答案</b></summary>
+<p>
+{ name: "Lydia", age: 21 }, ["name"]
+
+defineProperty声明的属性默认不可枚举，enumerable为false。
+Object.keys只会返回可枚举的属性。
 </p>
 </details>
