@@ -3,7 +3,7 @@
 首先是默认规则，即在所有规则都不适用时的默认指向。  
 直接上代码：
 ```javascript
-let a = '嘻嘻';
+var a = '嘻嘻';
 
 function foo () {
   console.log(this.a)
@@ -28,7 +28,7 @@ window.foo() // '嘻嘻'
 隐式绑定也可以被看作是调用上下文绑定。  
 还是直接上代码：
 ```javascript
-let obj = {
+var obj = {
   a: '哈哈',
   foo: function () {
     console.log(this.a)
@@ -44,15 +44,15 @@ obj.foo() // '哈哈'
 
 有时候，我们会被一些代码迷惑：
 ```javascript
-let a = '嘻嘻';
-let obj = {
+var a = '嘻嘻';
+var obj = {
   a: '哈哈',
   foo: function () {
     console.log(this.a)
   }
 }
 
-let boo = obj.foo;
+var boo = obj.foo;
 
 boo(); // 嘻嘻
 ```
@@ -61,7 +61,7 @@ boo(); // 嘻嘻
 
 同样的，考虑一下以下代码：
 ```javascript
-let a = '哈哈';
+var a = '哈哈';
 
 function foo () {
   console.log(this.a)
@@ -71,7 +71,7 @@ function boo (fn) {
   fn()
 }
 
-let obj = {
+var obj = {
   a: '嘻嘻',
   foo: foo
 }
@@ -82,8 +82,8 @@ boo(obj.foo) // 哈哈
 
 为了更好的理解这里出现的难以理解的this指向，我们看下面的代码：
 ```javascript
-let a = '哈哈'
-let obj = {
+var a = '哈哈'
+var obj = {
   a: '嘻嘻',
   foo: function () {
     console.log(this.a)
@@ -92,7 +92,7 @@ let obj = {
 
 obj.foo() // '嘻嘻'
 
-let a = obj.foo;
+var a = obj.foo;
 a() // '哈哈'
 ```
 想要搞清楚这其中到底发生了什么，你需要深入了解一下js的引用类型和值类型。
@@ -106,7 +106,7 @@ a() // '哈哈'
 function foo () {
   console.log(this.a)
 }
-let obj = {
+var obj = {
   a: '嘻嘻'
 }
 
@@ -121,7 +121,7 @@ function foo () {
   this.a = '嘻嘻'
 }
 
-let boo = new foo();
+var boo = new foo();
 
 console.log(boo.a) // '嘻嘻'
 ```
@@ -136,14 +136,14 @@ function foo () {
   }
 }
 
-let obj1 = {
+var obj1 = {
   a:'嘻嘻'
 }
 
-let obj2 = {
+var obj2 = {
   a: '哈哈'
 }
-let boo = foo.call(obj1);
+var boo = foo.call(obj1);
 boo.call(obj2); // '嘻嘻'
 ```
 箭头函数最大的不同是，他依赖外层作用域（上层或全局）来决定this的指向。
