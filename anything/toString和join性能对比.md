@@ -1,3 +1,5 @@
+# toString和join性能对比
+
 最近对各种可以实现相同功能的api的性能问题很感兴趣。  
 之前一直使用join来实现数组转字符串，今天突然看到Array.prototype.toString方法，和Array.prototype.join对于普通类型成员的数组来讲达到的效果一样，很好奇他们俩的性能如何。
 

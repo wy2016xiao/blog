@@ -17,6 +17,8 @@
 
 - [toString和join性能对比](https://github.com/wy2016xiao/blog/blob/master/anything/toString%E5%92%8Cjoin%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94.md)
 - [javascript运算符优先级](https://github.com/wy2016xiao/blog/blob/master/anything/javascript%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7.md)
+- [如何判断this指向](https://github.com/wy2016xiao/blog/blob/master/anything/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%ADthis%E6%8C%87%E5%90%91.md)
+- [聊聊bind、call和apply](https://github.com/wy2016xiao/blog/blob/master/anything/%E8%81%8A%E8%81%8Abind%E3%80%81call%E5%92%8Capply.md)
 
 # ？
 
