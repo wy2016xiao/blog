@@ -1,4 +1,4 @@
-##开门见山的说
+## 开门见山的说
 javascript是单线程的。不管是什么新框架新语法糖实现的所谓异步，其实都是用同步的方法去模拟的，牢牢把握住单线程这点非常重要。  
 而事件循环是js实现异步的一种方法，也是js的执行机制。
 
@@ -7,7 +7,7 @@ javascript是单线程的。不管是什么新框架新语法糖实现的所谓�
 
 
 ## macrotask与microtask
-macrotask（宏任务）：整体script（即同步任务），setInterval， setTimeout，UI 渲染、 I/O、postMessage、 MessageChannel、setImmediate(Node.js 环境)
+macrotask（宏任务）：整体script（即同步任务），setInterval， setTimeout，UI 渲染、 I/O、postMessage、 MessageChannel、setImmediate(Node.js 环境)  
 microtask（微任务）：promise，mutation observable，process.nextTick（Node.js 环境）
 
 
