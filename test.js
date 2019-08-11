@@ -1,18 +1,14 @@
-let obj = {
-  
-}
-let oldValue = [1]
-Object.defineProperty(obj, 'list', {
-  enumerable: true,
-  configurable: true,
-  get: function () {
-    console.log('be get')
-    return oldValue
-  },
-  set: function (newValue) {
-    console.log('be set')
-    oldValue = newValue
-  }
-});
+setTimeout(function() {
+  console.log('1 setTimeout callback');
+}, 0)
 
-obj.list[1] = 2;
+new Promise(function(resolve) {
+  setTimeout(function() {
+  console.log('2 promise setTimeout create');
+}, 0)
+  resolve()
+}).then(function() {
+  console.log('3 promise then');
+})
+
+console.log('4 outer console');
