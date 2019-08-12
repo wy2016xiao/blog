@@ -5,8 +5,11 @@ javascript是单线程的。不管是什么新框架新语法糖实现的所谓�
 如下图：
 
 
+## 执行栈
 
-## macrotask与microtask
+## 任务队列
+
+### macrotask与microtask
 macrotask（宏任务）：整体script（即同步任务），setInterval， setTimeout，UI 渲染、 I/O、postMessage、 MessageChannel、setImmediate(Node.js 环境)  
 microtask（微任务）：promise，mutation observable，process.nextTick（Node.js 环境）
 
@@ -122,3 +125,8 @@ microtask队列清空，执行下一个macrotask任务。</font>
 <font size="2">**（macrotask：[空]，microtask：[空]）**</font>  
 
 至此，所有代码执行完毕。
+
+
+
+
+## Node.js 环境下的Event Loop
