@@ -1,14 +1,34 @@
+console.log('1');
+
 setTimeout(function() {
-  console.log('1 setTimeout callback');
+  console.log('2');
+  new Promise(function(resolve) {
+    console.log('3');
+    resolve();
+  }).then(function() {
+    console.log('4')
+  })
 }, 0)
+new Promise(function(resolve) {
+  console.log('5');
+  resolve();
+}).then(function() {
+  console.log('6')
+})
 
 new Promise(function(resolve) {
   setTimeout(function() {
-  console.log('2 promise setTimeout create');
-}, 0)
+    console.log('7');
+  }, 0)
   resolve()
 }).then(function() {
-  console.log('3 promise then');
+  console.log('8');
 })
-
-console.log('4 outer console');
+// 1
+// 5
+// 6
+// 2
+// 3
+// 4
+// 7
+// 8
