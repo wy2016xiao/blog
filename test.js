@@ -1,34 +1,12 @@
-console.log('1');
+let A = function () {}
+let a = new A();
+let b = new String('b');
+let c = 1;
+let d = [];
+let e = {};
 
-setTimeout(function() {
-  console.log('2');
-  new Promise(function(resolve) {
-    console.log('3');
-    resolve();
-  }).then(function() {
-    console.log('4')
-  })
-}, 0)
-new Promise(function(resolve) {
-  console.log('5');
-  resolve();
-}).then(function() {
-  console.log('6')
-})
-
-new Promise(function(resolve) {
-  setTimeout(function() {
-    console.log('7');
-  }, 0)
-  resolve()
-}).then(function() {
-  console.log('8');
-})
-// 1
-// 5
-// 6
-// 2
-// 3
-// 4
-// 7
-// 8
+console.log(a.__proto__ === A.prototype);
+console.log(b.__proto__ === String.prototype);
+console.log(c.__proto__ === Number.prototype);
+console.log(d.__proto__ === Array.prototype);
+console.log(e.__proto__ === Object.prototype);
