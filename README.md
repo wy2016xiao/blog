@@ -15,8 +15,7 @@
 
 # 随笔
 
-- [toString和join性能对比](https://github.com/wy2016xiao/blog/blob/master/anything/toString%E5%92%8Cjoin%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94.md)
-- [javascript运算符优先级](https://github.com/wy2016xiao/blog/blob/master/anything/javascript%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7.md)
+- [原型与继承](https://github.com/wy2016xiao/blog/blob/master/anything/%E8%81%8A%E8%81%8Abind%E3%80%81call%E5%92%8Capply.md)
 - [如何判断this指向](https://github.com/wy2016xiao/blog/blob/master/anything/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%ADthis%E6%8C%87%E5%90%91.md)
 - [聊聊bind、call和apply](https://github.com/wy2016xiao/blog/blob/master/anything/%E8%81%8A%E8%81%8Abind%E3%80%81call%E5%92%8Capply.md)
 - [浏览器中的事件循环](https://github.com/wy2016xiao/blog/blob/dev/anything/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.md)
