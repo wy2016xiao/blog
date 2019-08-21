@@ -1,7 +1,6 @@
-let A = function () {};
+let A = function () {
+  this.a = 1;
+};
 let a = new A();
 
-console.log(a.__proto__.constructor === A)
-console.log(a.constructor === A)
-console.log(a instanceof A)
-console.log(a.__proto__ instanceof A)
+console.log(a.__proto__.a)
