@@ -19,6 +19,8 @@
 - [浏览器中的事件循环](https://github.com/wy2016xiao/blog/blob/master/anything/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.md)
 - [如何判断this指向](https://github.com/wy2016xiao/blog/blob/master/anything/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%ADthis%E6%8C%87%E5%90%91.md)
 - [聊聊bind、call和apply](https://github.com/wy2016xiao/blog/blob/master/anything/%E8%81%8A%E8%81%8Abind%E3%80%81call%E5%92%8Capply.md)
+- [函数柯里化](https://github.com/wy2016xiao/blog/blob/master/anything/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96.md)
+- [十大排序算法](https://github.com/wy2016xiao/blog/blob/master/anything/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%2B%E5%8A%A8%E5%9B%BE.md)
 - [javascript运算符优先级](https://github.com/wy2016xiao/blog/blob/master/anything/javascript%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7.md)
 - [toString和join性能对比](https://github.com/wy2016xiao/blog/blob/master/anything/toString%E5%92%8Cjoin%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94.md)
 
