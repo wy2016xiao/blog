@@ -1665,3 +1665,24 @@ fetch('https://www.website.com/api/user/1')
 前一个回调的结果，既res.json()
 </p>
 </details>
+
+
+81.如何判断js运行环境？
+```javascript
+let isNode;
+(function(){
+  var root = this;
+  if (typeof window !== 'undefined' && root === window) {
+    return isNode = false
+  }
+  isNode = true
+}).call(this)
+```
+<details><summary><b>答案</b></summary>
+<p>
+需要对全局环境下的this进行判断
+在最新提案中，有一个全局变量```globalThis```，它在浏览器环境中指向```window```对象，在node环境中指向```global```对象。
+</p>
+</details>
+
+

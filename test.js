@@ -1,6 +1,10 @@
-let a = 2;
-switch (a) {
-  case a == 2: 
-    console.log(1)
-    break
-}
+let isNode;
+(function(){
+  var root = this;
+  if (typeof window !== 'undefined' && root === window) {
+    return isNode = false
+  }
+  isNode = true
+}).call(this)
+
+console.log(isNode)
