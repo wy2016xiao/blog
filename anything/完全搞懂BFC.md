@@ -6,7 +6,7 @@ BFC最初被定义在css2.1规范的[Visual formatting model](https://www.w3.org
 
 ## 视觉格式化模型（Visual Formatting Model）
 
-视觉格式化模型是用来处理文档并将它显示在视觉媒体（user agents）上的机制，它让视觉媒体（浏览器等）知道如何处理文档。
+视觉格式化模型是用来处理文档并将它显示在视觉媒体上的机制，它让视觉媒体知道如何处理文档。（视觉媒体——user agent通常指的浏览器。）
 
 在视觉格式化模型中，文档树的每个元素根据盒模型生成零个或多个盒子。这些盒子的布局受以下因素控制：
 * 盒子的尺寸和类型。
@@ -45,7 +45,6 @@ Formatting Context，既格式化上下文。用于决定如何渲染文档的�
 
 【Flex formatting context】(FFC)
 
-
 ## 什么是BFC
 BFC既Block Formatting Context（块级格式化上下文）。
 
@@ -54,15 +53,22 @@ BFC既Block Formatting Context（块级格式化上下文）。
 
 也就是说，有这样几种情况会创建BFC：
 
+* 根元素（html）或其他包含它的元素
+
 * 浮动元素
 
 * 绝对定位元素
 
-* 非块级盒子的块级容器（inline-blokcs, table-cells, table-captions等）
+* 非块级盒子的块级容器（inline-blocks, table-cells, table-captions等）
 
 * overflow不为visiable的块级盒子
 
+## BFC的范围
+>A block formatting context contains everything inside of the element creating it that is not also inside a descendant element that creates a new block formatting context.
 
+一个BFC包含创建该上下文元素的所有子元素，但不包括创建了新BFC的子元素的内部元素。
+
+换句话说，一个元素不能同时存在两个BFC中。
 
 ## BFC的特性
 * 盒子从顶部开始垂直排列
@@ -73,8 +79,89 @@ BFC既Block Formatting Context（块级格式化上下文）。
 
 * 每个盒子的左外边与容器的左边接触（从右到左的格式化则相反），即使存在浮动也是如此，除非盒子建立了新的块格式化上下文
 
-## 从实际代码理解BFC
+* 形成了BFC的区域不会与float box重叠
 
+* 计算BFC的高度时，浮动子元素也参与计算
+
+## 从实际代码来分析BFC
+
+### 实例一
+```html
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.green {
+  background: #73DE80;
+  opacity: 0.5;
+  border: 3px solid #F31264;
+  width: 200px;
+  height: 200px;
+  float: left;
+}
+
+.red {
+  background: #EF5BE2;
+  opacity: 0.5;
+  border: 3px solid #F31264;
+  width: 400px;
+  min-height: 100px;
+}
+
+.gray {
+  background: #888;
+  height: 100%;
+  margin-left: 50px;
+}
+</style>
+<div class='gray'>
+  <div class='green'></div>
+  <div class='red'></div>
+</div>
+```
+![](https://tva1.sinaimg.cn/large/006y8mN6gy1g6ldrx47vvj317w0cuq32.jpg)
+
+在这个例子中，构建出BFC的只有class名为green的盒子（浮动元素）
+
+green盒子因为浮动原因，脱离普通文档流，形成浮动流。他好像跟其他两个盒子不在同一个世界一样。这也是我们在初涉前段时经常会碰到的头疼问题。（浮动流特性不在此文章讨论范围内，你可以简单理解为这个green盒子被扔进了异次元~）
+
+现在普通文档流中只有gray和red盒子，所以gray的高度只被red撑起来。红色盒子也无视绿色盒子的存在，跑到了最左边。
+
+### 实例二
+如果想要让灰色框包裹住绿色，最简单的办法就是给gray盒子构建BFC。
+
+```css
+.gray{
+  background:#888;
+  height: 100%;
+
+  overflow: hidden;
+}
+```
+![](https://tva1.sinaimg.cn/large/006y8mN6gy1g6ldw4oy5pj317s0mk74p.jpg)
+
+还记得BFC的特性吗？当我们计算BFC的高度时，浮动子元素也参与计算。这样一来我们就能让灰色盒子的高度被绿色盒子撑开了。
+
+### 实例三
+我们再来看看如何让红色盒子“接受”绿色盒子的存在？
+
+```css
+.red {
+  background: #EF5BE2;
+  opacity: 0.5;
+  border: 3px solid #F31264;
+  width: 400px;
+  min-height: 100px;
+
+  overflow: hidden;
+}
+```
+
+![](https://tva1.sinaimg.cn/large/006y8mN6gy1g6le1d7rx2j317q0igwes.jpg)
+
+我们将红色盒子也构建出BFC，根据特性，形成了BFC的区域不会与float box重叠。于是这里红色盒子成功“接受”了绿色盒子。
 
 ## 参考
 [BFC原理解析](https://github.com/louzhedong/blog/issues/145)  
