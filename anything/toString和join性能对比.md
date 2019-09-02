@@ -31,3 +31,11 @@ console.timeEnd('tostring')
 第七次|1771.698ms|1967.608ms
 
 性能上join比toString要好一些，但差距其实不太大。以后还是继续使用join吧~
+
+
+---
+如果有任何疑问或错误，欢迎留言进行提问或给予修正意见。
+
+如果喜欢或对你有所帮助，欢迎Star[我的博客](https://github.com/wy2016xiao/blog)，对作者是一种鼓励和推进。
+
+也欢迎关注[我的掘金](https://juejin.im/user/583bbd74ac502e006ea81f99)，浏览更多优质文章。

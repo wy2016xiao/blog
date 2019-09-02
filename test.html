@@ -6,18 +6,38 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
-    .a{
-      width: 50px;
-      height: 50px;
-      background-color: red;
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .green{
+        background: #73DE80;    /* 绿色 */
+        opacity: 0.5;
+        border: 3px solid #F31264;
+        width: 200px;
+        height: 200px;
+        float: left;
+    }
+    .red{                        /* 粉色 */
+        background: #EF5BE2;
+        opacity: 0.5;
+        border: 3px solid #F31264;
+        width:400px;
+        min-height: 100px;
+        overflow: hidden;
+    }
+    .gray{
+        overflow: hidden;
+        background:#888;
+        height: 100%;
+        margin-left: 50px;
     }
   </style>
 </head>
 <body>
-  <div class="a"></div>
+  <div class='gray'>
+    <div class='green'></div>
+    <div class='red'></div>
+</div>
 </body>
-<script>
-let a = document.getElementsByClassName('a');
-console.log(a)
-</script>
 </html>
