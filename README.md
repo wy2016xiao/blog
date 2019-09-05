@@ -13,7 +13,7 @@
 
 - [leetcode](https://github.com/wy2016xiao/leetcode)
 
-# 随笔
+# 文章
 
 - [原型与继承](https://github.com/wy2016xiao/blog/blob/master/anything/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E7%BB%A7%E6%89%BF.md)
 - [浏览器中的事件循环](https://github.com/wy2016xiao/blog/blob/master/anything/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.md)
@@ -24,6 +24,9 @@
 - [十大排序算法](https://github.com/wy2016xiao/blog/blob/master/anything/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%2B%E5%8A%A8%E5%9B%BE.md)
 - [javascript运算符优先级](https://github.com/wy2016xiao/blog/blob/master/anything/javascript%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7.md)
 - [toString和join性能对比](https://github.com/wy2016xiao/blog/blob/master/anything/toString%E5%92%8Cjoin%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94.md)
+
+## 从URL到页面加载完成发生了什么系列
+DNS详解
 
 # ？
 

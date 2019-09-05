@@ -27,7 +27,7 @@ BFC最初被定义在css2.1规范的[Visual formatting model](https://www.w3.org
 
 ## 格式化上下文（Formatting Context）
 
-Formatting Context，既格式化上下文。用于决定如何渲染文档的一个区域。
+Formatting Context，即格式化上下文。用于决定如何渲染文档的一个区域。
 
 不同的盒子使用不同的格式化上下文来布局。
 
@@ -46,7 +46,7 @@ Formatting Context，既格式化上下文。用于决定如何渲染文档的�
 【Flex formatting context】(FFC)
 
 ## 什么是BFC
-BFC既Block Formatting Context（块级格式化上下文）。
+BFC即Block Formatting Context（块级格式化上下文）。
 
 我们先来看看w3c对于BFC的定义：
 >Floats, absolutely positioned elements, block containers (such as inline-blocks, table-cells, and table-captions) that are not block boxes, and block boxes with 'overflow' other than 'visible' (except when that value has been propagated to the viewport) establish new block formatting contexts for their contents.
@@ -73,7 +73,7 @@ BFC既Block Formatting Context（块级格式化上下文）。
 ## BFC的特性
 * 盒子从顶部开始垂直排列
 
-* 两个相邻的盒子之间的垂直距离由外边距（既margin）决定
+* 两个相邻的盒子之间的垂直距离由外边距（即margin）决定
 
 * 块级格式化上下文中相邻的盒子之间的垂直边距折叠
 
