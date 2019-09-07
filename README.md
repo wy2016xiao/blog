@@ -15,6 +15,7 @@
 
 # 文章
 
+## 随笔
 - [原型与继承](https://github.com/wy2016xiao/blog/blob/master/anything/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E7%BB%A7%E6%89%BF.md)
 - [浏览器中的事件循环](https://github.com/wy2016xiao/blog/blob/master/anything/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.md)
 - [如何判断this指向](https://github.com/wy2016xiao/blog/blob/master/anything/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%ADthis%E6%8C%87%E5%90%91.md)
