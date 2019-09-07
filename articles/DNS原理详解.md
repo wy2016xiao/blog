@@ -115,18 +115,24 @@ DNS服务器不光在外网有，在你的计算机里面也有。在MAC端，�
 5. PTR：逆向查询记录（Pointer Record），只用于从IP地址查询域名
 
 ## DNS优化
-
-一般来说，我们不会每次都由根域名开始查起，这样有些不“优雅”。
-
 ### hosts
+一般来说，我们不会每次都由根域名开始查起，这样有些不“优雅”。实际上，hosts文件就是一种针对DNS的优化，将不常见的或访问不到的（内网）域名与其IP地址直接配置在hosts文件中。在访问域名的时候就能不通过DNS服务器查询直接访问IP地址。
 
-实际上，hosts文件就是一种针对DNS的优化，将不常见的或访问不到的（内网）域名与其IP地址直接配置在hosts文件中。在访问域名的时候就能不通过DNS服务器查询直接访问IP地址。
+### 使用httpDNS
+使用http/https协议进行域名解析，代替现有的基于UDP的DNS协议。
 
-### 
-TODO: http://www.52im.net/thread-2121-1-1.html
+腾讯、阿里都有httpDNS服务器。通过它们能够绕过运营商的local DNS，避免造成域名劫持和调度不精准等问题。
 
+关于DNS优化，不在本文重点讲解，更多知识可以参考[《全面了解移动端DNS域名劫持等杂症：原理、根源、HttpDNS解决方案等》](http://www.52im.net/thread-2121-1-1.html)
 
 ## 参考
 
 [DNS 原理入门](http://www.ruanyifeng.com/blog/2016/06/dns.html)  
 [全面了解移动端DNS域名劫持等杂症：原理、根源、HttpDNS解决方案等](http://www.52im.net/thread-2121-1-1.html)
+
+---
+如果有任何疑问或错误，欢迎留言进行提问或给予修正意见。
+
+如果喜欢或对你有所帮助，欢迎Star[我的博客](https://github.com/wy2016xiao/blog)，对作者是一种鼓励和推进。
+
+也欢迎关注[我的掘金](https://juejin.im/user/583bbd74ac502e006ea81f99)，浏览更多优质文章。
