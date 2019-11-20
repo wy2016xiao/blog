@@ -330,3 +330,11 @@ Function.prototype.bind = function (context, ...outerArgs) {
 这里我写的非常原始，是因为这样保留了**实现步骤**，让大家更好的看懂```bind```的实现原理。
 
 至此，整个```bind```实现完成，剩下的就是如何精简代码，将代码写的更优雅一些。
+
+
+---
+如果有任何疑问或错误，欢迎留言进行提问或给予修正意见。
+
+如果喜欢或对你有所帮助，欢迎Star[我的博客](https://github.com/wy2016xiao/blog)，对作者是一种鼓励和推进。
+
+也欢迎关注[我的掘金](https://juejin.im/user/583bbd74ac502e006ea81f99)，浏览更多优质文章。
