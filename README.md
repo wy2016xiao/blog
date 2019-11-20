@@ -31,6 +31,7 @@
 
 ## 手写实现系列
 - [可能是最详细的apply、call、bind手写实现](https://github.com/wy2016xiao/blog/blob/master/articles/%E6%89%8B%E5%86%99%E4%BB%A3%E7%A0%81/%E5%8F%AF%E8%83%BD%E6%98%AF%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84apply%E3%80%81call%E3%80%81bind%E6%89%8B%E5%86%99%E5%AE%9E%E7%8E%B0.md)
+- [reduce手写实现](https://github.com/wy2016xiao/blog/blob/master/articles/%E6%89%8B%E5%86%99%E4%BB%A3%E7%A0%81/reduce%E6%89%8B%E5%86%99%E5%AE%9E%E7%8E%B0.md)
 
 ## 从URL到页面加载完成发生了什么系列
 - [DNS原理详解](https://github.com/wy2016xiao/blog/blob/master/articles/DNS%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3.md)
