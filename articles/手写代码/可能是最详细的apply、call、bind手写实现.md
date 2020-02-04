@@ -332,6 +332,23 @@ Function.prototype.bind = function (context, ...outerArgs) {
 至此，整个```bind```实现完成，剩下的就是如何精简代码，将代码写的更优雅一些。
 
 
+贴一个VUE源码中的bind手写实现：
+```javascript
+function polyfillBind (fn: Function, ctx: Object): Function {
+  function boundFn (a) {
+    const l = arguments.length
+    return l
+      ? l > 1
+        ? fn.apply(ctx, arguments)
+        : fn.call(ctx, a)
+      : fn.call(ctx)
+  }
+
+  boundFn._length = fn.length
+  return boundFn
+}
+```
+
 ---
 如果有任何疑问或错误，欢迎留言进行提问或给予修正意见。
 
