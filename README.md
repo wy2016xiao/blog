@@ -28,6 +28,7 @@
 - [十大排序算法](https://github.com/wy2016xiao/blog/blob/master/anything/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%2B%E5%8A%A8%E5%9B%BE.md)
 - [javascript运算符优先级](https://github.com/wy2016xiao/blog/blob/master/anything/javascript%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7.md)
 - [toString和join性能对比](https://github.com/wy2016xiao/blog/blob/master/anything/toString%E5%92%8Cjoin%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94.md)
+- [前端模块化简述](https://github.com/wy2016xiao/blog/blob/master/articles/%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96.md)
 
 ## 手写实现系列
 - [可能是最详细的apply、call、bind手写实现](https://github.com/wy2016xiao/blog/blob/master/articles/%E6%89%8B%E5%86%99%E4%BB%A3%E7%A0%81/%E5%8F%AF%E8%83%BD%E6%98%AF%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84apply%E3%80%81call%E3%80%81bind%E6%89%8B%E5%86%99%E5%AE%9E%E7%8E%B0.md)
