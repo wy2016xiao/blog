@@ -79,10 +79,12 @@ Function.prototype.apply = function (context, args) {
   // 将函数作为传入的```context```对象的一个属性，调用该函数
   const fn = Symbol()
   context[fn] = this
-  context[fn](...args)
+  const result = context[fn](...args)
   
   // 不要忘了调用之后删除该属性
   delete context[fn]
+  
+  return result
 }
 ```
 
@@ -114,10 +116,12 @@ Function.prototype.call = function (context, ...args) {
   // 将函数作为传入的```context```对象的一个属性，调用该函数
   const fn = Symbol()
   context[fn] = this
-  context[fn](...args)
+  const result = context[fn](...args)
   
   // 不要忘了调用之后删除该属性
   delete context[fn]
+  
+  return result
 }
 ```
 
