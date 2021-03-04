@@ -76,9 +76,9 @@ Function.prototype.apply = function (context, args) {
     throw new TypeError('not a function')
   }
 
-  // 将函数作为传入的```context```对象的一个属性，调用该函数
+  // 将函数作为传入的`context`对象的一个属性，调用该函数
   const fn = Symbol()
-  context[fn] = this
+  context[fn] = this // symbol作为key时只能用[key]来访问
   const result = context[fn](...args)
   
   // 不要忘了调用之后删除该属性
@@ -151,6 +151,8 @@ MDN的描述有些拗口，我来解释下：
 
 4. 运行该函数，如果该函数没有返回对象，则返回this。
 
+如果你对js的继承实现有了解，那么有一种更简单的理解：创建一个对象，继承属性和方法，然后考虑返回值。
+
 看下代码：
 
 ```javascript
@@ -158,15 +160,18 @@ function myNew (fn, ...args) {
   // 第一步，创建一个空的简单JavaScript对象（即{}）；
   let obj = {}
 
-  // 第二步，原型链绑定
+  // 第二步，原型链绑定（继承方法）
   fn.prototype !== null && (obj.__proto__ = fn.prototype)
 
-  // 第三步，改变this指向并运行该函数
+  // 第三步，改变this指向并运行该函数（继承属性）
   let ret = fn.call(obj, ...args)
 
   // 第四步，如果该函数没有返回对象，则返回this
   // 别忘了 typeof null 也返回 'object' 的bug
-  if ((typeof ret === 'object' || typeof ret === 'function') && ret !== null) {
+  if (
+    (typeof ret === 'object' || typeof ret === 'function') && // new中,返回值是对象或函数都会被返回
+    ret !== null // 排除null
+  ) {
     return ret 
   }
   return obj
@@ -315,8 +320,8 @@ Function.prototype.bind = function (context, ...outerArgs) {
   let that = this;
 
   function ret (...innerArgs) {
+    // 在new操作的继承方法步骤中,会将new自身创建的简单对象的原型链接到构造函数(即ret)上,所以可以用此方法判断是否执行new操作
     if (this instanceof ret) {
-      // new操作符执行时
       // 这里的this在new操作符第三步操作时，会指向new自身创建的那个简单空对象{}
       that.call(this, ...outerArgs, ...innerArgs)
     } else {

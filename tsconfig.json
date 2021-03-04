@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "strict": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "jsxFactory": "React.createElement",
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "lib": ["dom", "esnext"],
+    "allowJs": true,
+    "baseUrl": "./",
+    "typeRoots": ["node_modules/@types", "global.d.ts"],
+    "paths": {
+      "@pages/*": ["src/pages/*"],
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"],
+      "@actions/*": ["src/actions/*"],
+      "@constants/*": ["src/constants/*"],
+      "@reducers/*": ["src/reducers/*"],
+      "@sagas/*": ["src/sagas/*"],
+      "@api/*": ["src/api/*"],
+      "@utils/*": ["src/utils/*"],
+      "@lib/*": ["src/lib/*"],
+      "@type/*": ["src/types/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@const/*": ["src/const/*"]
+    }
+  },
+  "include": ["src", "storybook/stories"],
+  "exclude": ["node_modules", "dist", "build", "src/**/*.js"]
+}
