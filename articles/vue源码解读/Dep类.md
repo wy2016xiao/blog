@@ -1,4 +1,4 @@
-dep是dependency的缩写，顾名思义，是一个依赖有关打的类。
+dep是dependency的缩写，顾名思义，是一个依赖有关的类。
 
 ### 静态属性：
 
@@ -8,11 +8,11 @@ dep是dependency的缩写，顾名思义，是一个依赖有关打的类。
 
 `id` - 主键
 
-`subs` - 依赖列表
+`subs` - Watcher列表
 
 ### 方法：
 
-`addSub` - 添加依赖
+`addSub` - 向subs列表添加依赖
 
 `removeSub` - 移除依赖
 
