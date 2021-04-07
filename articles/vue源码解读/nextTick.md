@@ -2,10 +2,10 @@
 if (typeof Promise !== 'undefined' && isNative(Promise)) {
   // 如果有Promise类并且是原生类则使用Promise
   // 使用一个立即resolve的Promise来调用回调列表
-  // ios直接使用setTImeout
   const p = Promise.resolve()
   timerFunc = () => {
     p.then(flushCallbacks)
+    // ios的webview下，需要强制刷新队列，执行上面的回调
     if (isIOS) setTimeout(noop)
   }
   isUsingMicroTask = true
