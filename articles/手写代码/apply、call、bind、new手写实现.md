@@ -147,6 +147,10 @@ MDN的描述有些拗口，我来解释下：
 
 2. 将这个空对象的构造函数指定为```new```操作符操作的函数（即定义中说的另一个对象）。其实就是原型链绑定，相关知识可以看我的另一篇文章[原型与继承](https://github.com/wy2016xiao/blog/blob/master/anything/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E7%BB%A7%E6%89%BF.md)；
 
+这里注意，一定要先绑定原型链，再用call继承属性，为什么有这个先后顺序，在手写bind操作符时会领悟到：
+
+在new操作符内部实现中，我们必须在第三步调用call之前，让this instanceof constructor
+
 3. 将操作符操作的函数的this指向步骤1创建的空对象；
 
 4. 运行该函数，如果该函数没有返回对象，则返回this。
@@ -224,28 +228,31 @@ Function.prototype.bind = function (context, ...outerArgs) {
 
 实现很简单，我们返回一个函数，里面使用```call```更改```this```指向就好了
 
+
 ### 第二步
 
-其实事情并没有这么简单，由于bind会返回一个函数，理所当然的可以对其使用new操作符
+有一个小问题没有解决，那就是```eat.prototype.sayFuncName```函数没有继承到。
 
-如果你对```bind```返回的函数使用```new```操作符，会发现有些问题
+也就是说，我们在bind内部实现了属性的继承（call），
 
-首先你会遇到报错
-
-```TypeError: thovinoEat is not a constructor```
-
-这是因为上面我用了箭头函数，```new```操作符无法改变```this```指向了
-
-修改一下：
+要解决这个问题非常简单，只需要将返回的函数链接上被调用函数的原型就可以实现方法继承了：
 
 ```javascript
 Function.prototype.bind = function (context, ...outerArgs) {
   let that = this;
-  return function (...innerArgs) {
+
+  function ret (...innerArgs) {
     that.call(context, ...outerArgs, ...innerArgs)
   }
+
+  ret.prototype = this.prototype
+
+  return ret
 }
 ```
+
+### 第三步
+
 
 接着我们来测试一下
 ```javascript
@@ -296,32 +303,9 @@ Function.prototype.bind = function (context, ...outerArgs) {
   let that = this;
   function ret (...innerArgs) {
     if (this instanceof ret) {
+      // 这里之所以能这么判断，是因为 const a = new ret()中，a是ret的实例，a instanceof ret，而这里的this就是a
+
       // new操作符执行时
-      // 这里的this在new操作符第三步操作时，会指向new自身创建的那个简单空对象{}
-      that.call(this, ...outerArgs, ...innerArgs)
-    } else {
-      // 普通bind
-      that.call(context, ...outerArgs, ...innerArgs)
-    }
-  }
-
-  return ret
-}
-```
-
-### 第三步
-
-用回第二步的测试代码，发现还有最后一个小问题没有解决，那就是```eat.prototype.sayFuncName```函数没有继承到。
-
-要解决这个问题非常简单，只需要将返回的函数链接上被调用函数的原型就可以实现方法继承了：
-
-```javascript
-Function.prototype.bind = function (context, ...outerArgs) {
-  let that = this;
-
-  function ret (...innerArgs) {
-    // 在new操作的继承方法步骤中,会将new自身创建的简单对象的原型链接到构造函数(即ret)上,所以可以用此方法判断是否执行new操作
-    if (this instanceof ret) {
       // 这里的this在new操作符第三步操作时，会指向new自身创建的那个简单空对象{}
       that.call(this, ...outerArgs, ...innerArgs)
     } else {
@@ -335,6 +319,7 @@ Function.prototype.bind = function (context, ...outerArgs) {
   return ret
 }
 ```
+
 
 这里我写的非常原始，是因为这样保留了**实现步骤**，让大家更好的看懂```bind```的实现原理。
 
