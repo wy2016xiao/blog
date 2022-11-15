@@ -12,5 +12,3 @@ test/
 *.sln
 dist
 *.iml
-.vscode
-package-lock.json
