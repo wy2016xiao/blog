@@ -4,14 +4,12 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "启动程序",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/../leetcode/solution/206.反转链表.js"
-        }
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "node current file",
+			"program": "${file}",
+			"runtimeExecutable": "/Users/muno/.nvm/versions/node/v12.20.0/bin/node",
+		}
     ]
 }
