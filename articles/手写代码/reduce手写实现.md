@@ -58,7 +58,7 @@ accumulator, currentValue, currentIndex, sourceArray
 Array.prototype.myreduce = function (fn, initialValue) {
   // fn(accumulator, currentValue, currentIndex, sourceArray)
   // 判断调用对象是否为数组
-  if (Object.prototype.toString.call([]) !== '[object Array]') {
+  if (Object.prototype.toString.call(this) !== '[object Array]') {
     throw new TypeError('not a array')
   }
   // 判断调用数组是否为空数组
