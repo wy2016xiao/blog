@@ -37,3 +37,28 @@
 - 如果开发的是组件库，建议将代码运行引用的库放到dependencies，其它的编译打包、eslint校验、开发相关的包放到devDependencies；
 
 
+## peerDependencies
+
+### npm2中的peerDependencies
+再来看看peerDependencies。其实peerDependencies的含义很简单，那就是”如果你安装我，那么你最好也安装X“。
+
+它的目的是解决依赖和宿主的共用依赖包不一致问题。
+
+> peerDependencies的目的是提示宿主环境去安装满足插件peerDependencies所指定依赖的包，然后在插件import或者require所依赖的包的时候，永远都是引用宿主环境统一安装的npm包，最终解决插件与所依赖包不一致的问题。
+
+比如：
+```
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  }
+```
+它要求宿主环境安装react@>=16.0.0和react-dom@>=16.0.0的版本
+
+### npm3+中的peerDependencies
+
+npm3+之后，不会再要求宿主环境安装peerDependencies，而是会提示警告。
+
+### npm7-8中的peerDependencies
+
+npm7-8中，peerDependencies的行为和npm2一样，要求宿主环境安装peerDependencies。
