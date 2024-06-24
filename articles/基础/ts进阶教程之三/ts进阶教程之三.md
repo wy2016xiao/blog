@@ -77,7 +77,7 @@ classic node16 node10/node nodenext bundler
 
 是否引入降级操作。比如展开操作符、async关键字、extend关键字等。
 
-jsx
+### jsx
 
 控制如何处理jsx代码。
 
@@ -128,6 +128,10 @@ allowSyntheticDefaultImports
 ### outDir
 
 指定编译后的js输出位置
+
+### types
+
+控制允许全局使用的类型定义
 
 更多可以看文档：[TSConfig Reference](https://ts.nodejs.cn/tsconfig#references)
 
