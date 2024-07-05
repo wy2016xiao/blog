@@ -1,3 +1,5 @@
+# 不常用知识点
+
 ## 泛型
 
 泛型即为类型参数化，可以理解为一个占位符，用来表示类型。
@@ -124,43 +126,6 @@ type P<T> = [T] extends [string] ? T : never;
 type A2 = P<'x' | 'y'>;
 ```
 
-## 类型兼容
-
-类型兼容是指在某些情况下，一个类型可以被赋值给另一个类型。
-
-```typescript
-interface Pet {
-  name: string;
-}
-let pet: Pet;
-
-let dog = { name: "Lassie", owner: "Rudd Weatherwax" };
-
-pet = dog; // ok
-
-function greet(pet: Pet) {
-  console.log("Hello, " + pet.name);
-}
-greet(dog); // OK
-```
-
-对象字面量只能指定已知属性：
-```typescript
-let pet: Pet = { name: "Lassie", owner: "Rudd Weatherwax" };
-```
-
-这样写就不行，因为对象字面量只能指定已知属性，而Pet接口只有name属性。
-
-### 函数兼容
-
-函数兼容是相反的，x可以赋值给y，但y不能赋值给x。因为函数参数通常可以省略。
-
-```typescript
-let x = (a: number) => 0;
-let y = (b: number, s: string) => 0;
-y = x; // OK
-x = y; // Error
-```
 
 ## 枚举
 
@@ -309,6 +274,36 @@ a.b = 1;
 a.c = 'c';
 ```
 
+## 交叉类型
+
+```typescript
+interface A  {a: 1, b: 2};
+interface B  {a: 1, c: 4};
+
+type C = A & B;
+
+const c: C = {a: 1, b: 2, c: 4}; // ok
+```
+
+交叉类型不能相斥：
+
+```typescript
+interface A  {a: 1, b: 2};
+interface B  {b: 3, c: 4};
+
+type C = A & B; // never
+
+const c: C = {a: 1, b: 2, c: 4}; // error
+
+```
+
+所以交叉类型使用必须非常注意，尤其是作为泛型使用。
+
+一个经典去重体操：
+```typescript
+type A<T, U> = Exclude<T | U, T & U>;
+type B = A<1 | 2, 1 | 3>; // 1 | 3
+```
 
 ---
 如果有任何疑问或错误，欢迎留言进行提问或给予修正意见。
