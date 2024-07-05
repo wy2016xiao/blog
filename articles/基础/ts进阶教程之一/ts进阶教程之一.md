@@ -92,19 +92,19 @@ type ReturnType<T> = T extends (...args: any[]) => infer R ? R : any;
 
 ### 分布式条件类型
 
+如果条件类型是泛型，而且泛型是联合类型，那么就会分开应用。
+
 示例：
 
 ```typescript
-type A = 'x' | 'y' extends 'x' ? 1 : 2;
+type A = 'x' | 'y' extends 'x' ? 1 : 2; // 2
 
 type P<T> = T extends 'x' ? 1 : 2;
-type A2 = P<'x' | 'y'>;
+type A2 = P<'x' | 'y'>; // 1 | 2
 
 type P2<T> = [T] extends ['x'] ? 1 : 2;
-type A3 = P2<'x' | 'y'>;
+type A3 = P2<'x' | 'y'>; // 2
 ```
-
-如果条件类型是泛型，而且泛型是联合类型，那么就会分开应用。
 
 这是为了使下面这种写法能够成立：
 
@@ -113,7 +113,7 @@ type P<T> = T extends string ? T : never;
 type A2 = P<'x' | 'y' | 3>;
 ```
 
-所以条件类型页可以用来做过滤，比如过滤掉联合类型中的某个类型。
+所以条件类型也可以用来做过滤，比如过滤掉联合类型中的某个类型。
 
 它在类型体操中非常常用。
 
@@ -136,7 +136,7 @@ let pet: Pet;
 
 let dog = { name: "Lassie", owner: "Rudd Weatherwax" };
 
-pet = dog;
+pet = dog; // ok
 
 function greet(pet: Pet) {
   console.log("Hello, " + pet.name);
@@ -146,12 +146,14 @@ greet(dog); // OK
 
 对象字面量只能指定已知属性：
 ```typescript
-let dog: Pet = { name: "Lassie", owner: "Rudd Weatherwax" }; // Error
+let pet: Pet = { name: "Lassie", owner: "Rudd Weatherwax" };
 ```
 
 这样写就不行，因为对象字面量只能指定已知属性，而Pet接口只有name属性。
 
 ### 函数兼容
+
+函数兼容是相反的，x可以赋值给y，但y不能赋值给x。因为函数参数通常可以省略。
 
 ```typescript
 let x = (a: number) => 0;
@@ -159,8 +161,6 @@ let y = (b: number, s: string) => 0;
 y = x; // OK
 x = y; // Error
 ```
-
-函数兼容是相反的，x可以赋值给y，但y不能赋值给x。因为函数参数通常可以省略。
 
 ## 枚举
 
@@ -237,7 +237,7 @@ type Getters<Type> = {
 };
 ```
 
-如果```in```是```map```函数，那么```as```后面跟着的可以理解为```map```的返回值。
+如果```in```是```map```函数中的```item```，那么```as```后面跟着的可以理解为```map```的```return```。
 
 ```typescript
 type EventConfig<Events extends { kind: string }> = {
@@ -256,6 +256,23 @@ type Config = EventConfig<SquareEvent | CircleEvent>;
 
 上面的映射意思为，对于```Events```联合类型的每一个成员，，将```E["kind"]```作为新的属性名，对应的值为(event: E) => void。
 
+in关键字也可以映射联合类型
+
+```typescript
+type EventConfig<Events extends { kind: string }> = {
+    [E in Events as E["kind"]]: (event: E) => void;
+}
+ 
+type SquareEvent = { kind: "square", x: number, y: number };
+type CircleEvent = { kind: "circle", radius: number };
+ 
+type Config = EventConfig<SquareEvent | CircleEvent>
+//type Config = {
+//    square: (event: SquareEvent) => void;
+//    circle: (event: CircleEvent) => void;
+//}
+```
+
 ## 对象字面量的惰性初始化
 
 下面这种写法肯定很常见：
@@ -272,7 +289,7 @@ a.c = 'c'
 TS是强类型语言，```a```的类型在初始化的时候就已经确定下来了，所以不能再添加新的属性。
 
 解决方案有很多，比如用**类型断言**：
-    
+
 ```typescript
 const a = {} as any;
 
