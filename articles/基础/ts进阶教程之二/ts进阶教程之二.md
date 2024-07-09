@@ -1,16 +1,16 @@
-# TypeScript体操基础
+## TypeScript体操基础
 
-TS是图灵完备的，也就是说它可以作为一个编程语言，可以实现任何算法。
+TS是图灵完备的，也就是说它可以作为一个编程语言，实现任何算法。
 
-也就意味着，判断、递归、字符串操作、对象操作等等都是可以实现的。
+换句话说，判断、递归、字符串操作、对象操作等等都是可以实现的。
 
-## 判断
+### 判断
 
 ```typescript
 type isNumber<T> = T extends number ? true : false;
 ```
 
-## 字符串操作
+### 字符串操作
 
 ```typescript
 type left = 'aaa';
@@ -31,40 +31,33 @@ type a = 'aaa,bbb';
 type c = a extends `aaa,${infer rest}` ? rest : never; // 'bbb'
 ```
 
-## 对象操作
+### 对象操作
 
 构造对象和对象取值也很简单
 
 ```typescript
-type obj = {
+type obja = {
     a: 1,
-    b: 2
+    b: 2,
 }
 
-type obja = obj['a']; // 1
+type objb = {
+    b: 2,
+    c: 3,
+}
+
+// 对象取值
+type objaa = obja['a']; // 1
+// 对象合并
+type objab = obja & objb; // { a: 1, b: 2, c: 3 }
+// 复制对象
+type bkObj = {
+    [key in keyof obja]: obja[key];
+}
 ```
 
-## 递归
-
+### 递归
 递归稍微复杂一点，主要用到了extends进行递归终止判断。
-
-```typescript
-type FlattenKeys<T> = T extends object
-  ? { [K in keyof T]: K extends string ? K | FlattenKeys<T[K]> : never }[keyof T]
-  : '';
-
-type NestedObject = {
-  a: {
-    b: {
-      c: string;
-    };
-    d: string;
-  };
-  e: number;
-};
-
-type Keys = FlattenKeys<NestedObject>; // "a" | "b" | "c" | "d" | "e"
-```
 
 ```typescript
 type CreateArray<Len, Ele, Arr extends Ele[] = []> = Arr['length'] extends Len ? Arr : CreateArray<Len, Ele, [...Arr, Ele]>;
@@ -73,6 +66,87 @@ type ArrString = CreateArray<3, string>; // [string, string, string]
 type ArrA = CreateArray<3, 'a'>; // ['a', 'a', 'a']
 type ArrB = CreateArray<6, string, ['c']>; // ["c", string, string, string, string, string]
 ```
+
+
+
+## 类型体操
+
+### 数字加法
+
+ts没有运算符，所以只能通过构造数组再取长度的方式来实现加法。
+
+```typescript
+type createArray<Len, Ele, Arr extends Ele[] = []> =  Arr['length'] extends Len ? Arr : createArray<Len, Ele, [Ele, ...Arr]>
+
+type Add<A extends number, B extends number> = [...createArray<A, 1>, ...createArray<B, 1>]['length']
+
+type b = Add<2,3>
+```
+
+### 把字符串重复n次
+
+这里用到的基本运算是递归+模板字符串。
+
+```typescript
+type RepeactStr<Str extends string,
+                Count, 
+                Arr extends Str[] = [],
+                ResStr extends string = ''> 
+ = Arr['length'] extends Count 
+ ? ResStr 
+ : RepeactStr<Str, Count, [Str, ...Arr], `${Str}${ResStr}`>;
+```
+
+### 取出对象中的数字属性
+
+```typescript
+type filterNumberProp<T extends Object> = { 
+    [Key in keyof T] : T[Key] extends number ? T[Key] : never
+ }[keyof T];
+```
+
+### 实现内置Pick泛型类型
+
+```typescript
+type IPick<O extends object, strs extends keyof O> = {
+    [k in strs]: O[k]
+}
+type Ojb = {
+    a: 1
+    b: 2
+    c: 3
+}
+
+type res = IPick<Ojb, 'a' | 'b'> // { a: 1, b: 2 }
+```
+
+### 取数组第一个
+```typescript
+type FirstofArray<Arr extends any[]> = Arr extends any[] ? Arr[0] : never;
+// type FirstofArray<Arr extends any[]> = Arr extends [infer A, ...infer rest] ? A : never
+
+type a = FirstofArray<[string, any, string]>
+```
+
+### 实现push
+```typescript
+type Push<Arr extends any[], I> = [...Arr, I];
+
+type a = Push<[2,3], 's'>
+```
+
+### -1
+```typescript
+type MinusOne<T extends number, A extends 1[] = [], B extends 1[] = []> =T extends A['length'] ? B['length'] : MinusOne<T, [ ...A, 1], [...A]>;
+
+type a = MinusOne<56>
+```
+
+实际上，这种实现是有问题的。问题在于ts的递归深度有限制，所以这种递归实现是有限制的。
+
+看下下面这个算法。
+
+### 乘法
 
 
 ---

@@ -9,7 +9,7 @@
     "outDir": "./dist",
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "jsxFactory": "React.createElement",
@@ -35,6 +35,5 @@
       "@const/*": ["src/const/*"]
     }
   },
-  "include": ["src", "storybook/stories"],
   "exclude": ["node_modules", "dist", "build", "src/**/*.js"]
 }

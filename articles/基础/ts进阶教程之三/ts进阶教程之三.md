@@ -196,11 +196,11 @@ sugesstion
 
 #### 绑定快捷键
 
-打开快捷键JSON文件
+打开快捷键JSON文件，ctrl+shift+p，输入shortcuts，选择打开快捷键文件
 
 ![alt text](image-4.png)
 
-添加自定义快捷键
+添加自定义快捷键，name要对应代码片段中的key。
 
 ![alt text](image-5.png)
 
@@ -211,6 +211,46 @@ ts默认不会读取.开头以及node_modules下的文件夹，所以.meepo会�
 ![alt text](image-6.png)
 
 善用声明合并，可以对meepo中的类型定义进行扩展
+
+## 开发技巧
+
+### 对象字面量的惰性初始化
+
+下面这种写法肯定很常见：
+
+```javascript
+const a = {}
+
+a.b = 1
+a.c = 'c'
+```
+
+虽然在js中可以这样写，但在TS中，这样是非法的。
+
+TS是强类型语言，```a```的类型在初始化的时候就已经确定下来了，无论内部有什么成员，都不能再添加新的属性。
+
+但习惯js编程思想的我们，肯定想要这样灵活的写代码。
+
+解决方案也有很多，比如用**类型断言**：
+
+```typescript
+const a = {} as any;
+
+a.b = 1;
+a.c = 'c';
+```
+
+显然any不太好，因为这样就失去了TS的类型检查，而且开发不友好，代码提示始终是```any```。
+
+我们可以使用interface来固定类型，又能实现惰性初始化：
+
+```typescript
+interface A {b: number; c: string;};
+
+const a = {} as A;
+a.b = 1;
+a.c = 'c';
+```
 
 
 ---
