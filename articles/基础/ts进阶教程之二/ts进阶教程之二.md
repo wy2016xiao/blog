@@ -4,11 +4,7 @@ TS是图灵完备的，也就是说它可以作为一个编程语言，实现任
 
 换句话说，判断、递归、字符串操作、对象操作等等都是可以实现的。
 
-### 判断
-
-```typescript
-type isNumber<T> = T extends number ? true : false;
-```
+## 基本类型操作
 
 ### 字符串操作
 
@@ -23,7 +19,7 @@ type ConcatStrings<T extends string, U extends string> = `${T}${U}`;
 type result = ConcatStrings<'Hello, ', 'world!'>; // 'Hello, world!'
 ```
 
-联合infer。
+结合infer。
 
 ```typescript
 type a = 'aaa,bbb';
@@ -56,8 +52,71 @@ type bkObj = {
 }
 ```
 
-### 递归
-递归稍微复杂一点，主要用到了extends进行递归终止判断。
+### 元组操作
+
+```typescript
+type A = [1, 2, 3];
+
+type B = A['length'] // 3
+type C = A[number] // 1 | 2 | 3
+```
+
+### 数组操作
+
+```typescript
+type A = string[];
+
+type B = A['length'] // number
+type C = A[number] // string
+```
+
+## 运算操作
+
+### 提取
+
+如上面所说，```infer```关键字是一个很强大的工具，可以用来提取类型。
+
+当我们需要提取某些类型中的类型时，可以使用```infer```。
+
+```typescript
+type GetParameters<Func extends Function> = Func extends (...args: infer Args) => unknown ? Args : never;
+
+type ParametersResult = GetParameters<(name: string, age: number) => string>
+```
+
+神奇的是，```infer```还可以用来提取字符串。
+
+```typescript
+type S<T extends string> = T extends `${infer R}${string}` ? R : never;
+
+type A = S<'abc'>; // ["a"]
+```
+
+在这种字符串匹配中，```infer```的作用是提取字符串的第一个字符。
+
+实际上，这里永远是惰性提取一个字符串，直到最后一个匹配类型会全部提取。
+
+```typescript
+type S<T extends string> = T extends `${infer A}${infer B}${infer C}${infer D}${infer E}` ? [A, B, C, D, E] : never;
+
+type A = S<'abcdefghi'>; // ["a", "b", "c", "d", "efghi"]
+```
+
+### 变换
+
+对于基于XXX生成XXX的操作，基本思路都是通过构造一个新的类型来实现。
+
+```typescript
+type CapitalizeStr<Str extends string> =
+    Str extends `${infer First}${infer Rest}`
+    ? `${Uppercase<First>}${Rest}` : Str;
+
+type CapitalizeResult = CapitalizeStr<'tang'>
+```
+
+### 循环
+
+循环稍显复杂，TS本身不支持循环，但是可以通过递归来实现。
 
 ```typescript
 type CreateArray<Len, Ele, Arr extends Ele[] = []> = Arr['length'] extends Len ? Arr : CreateArray<Len, Ele, [...Arr, Ele]>;
@@ -67,21 +126,32 @@ type ArrA = CreateArray<3, 'a'>; // ['a', 'a', 'a']
 type ArrB = CreateArray<6, string, ['c']>; // ["c", string, string, string, string, string]
 ```
 
+### 计数
 
+类型编程本身不支持做加减乘除运算，但可以通过递归构指定长度数组，然后取数组长度的方式来实现。
 
-## 类型体操
-
-### 数字加法
-
-ts没有运算符，所以只能通过构造数组再取长度的方式来实现加法。
+比如加法运算：
 
 ```typescript
 type createArray<Len, Ele, Arr extends Ele[] = []> =  Arr['length'] extends Len ? Arr : createArray<Len, Ele, [Ele, ...Arr]>
 
 type Add<A extends number, B extends number> = [...createArray<A, 1>, ...createArray<B, 1>]['length']
 
-type b = Add<2,3>
+type b = Add<2,3> // 5
 ```
+
+### 判断 
+
+判断很简单，直接使用```extends```关键字的能力就可以实现。
+
+```typescript
+type isNumber<T> = T extends number ? true : false;
+
+type res = isNumber<1>; // true
+```
+
+
+## 类型体操
 
 ### 把字符串重复n次
 
@@ -146,7 +216,71 @@ type a = MinusOne<56>
 
 看下下面这个算法。
 
-### 乘法
+
+### 项目中的一个例子
+
+```typescript
+/** 配置中心-字典项 */
+export interface DicItem {
+  /** 字典项编码 */
+  dicCode: string;
+  /** 字典项名称 */
+  dicName: string;
+  /** 字典项说明 */
+  description: string;
+  /** 缩写 */
+  abbreviation: string;
+}
+
+/** 手术状态 */
+export const SURGERY_STATUS_MAP = {
+  /** 未开始 */
+  NOT_STARTED: 0,
+  /** 送程中 */
+  EN_ROUTE: 1,
+  /** 进行中 */
+  IN_PROGRESS: 2,
+  /** 已完成 */
+  COMPLETED: 3,
+  /** 返程中 */
+  RETURNING: 4,
+  /** 已返回 */
+  RETURNED: 5,
+  /** 取消 */
+  CANCELED: 6,
+  /** 复苏中 */
+  // RECOVERING: 7,
+} as const;
+```
+
+根据```SURGERY_STATUS_MAP```生成```SurgeryStatus```类型。
+
+写法非常多，这给出一个麻烦但不改动源代码的写法。
+
+```typescript
+type SurgeryStatusValues = (typeof SURGERY_STATUS_MAP)[keyof typeof SURGERY_STATUS_MAP];
+
+/**
+ * {
+ *   0: { dicCode: 0, dicName: string, description: string, abbreviation: string },
+ *   1: { dicCode: 1, dicName: string, description: string, abbreviation: string },
+ *   ...
+ * }
+ */
+type SurgeryStatusDicItemMap = {
+    [K in SurgeryStatusValues]: Omit<DicItem, 'dicCode'> & { dicCode: K }
+};
+
+type SurgeryStatus = {
+    [K in SurgeryStatusValues]: Omit<DicItem, 'dicCode'> & { dicCode: K }
+}[SurgeryStatusValues][];
+```
+
+其实可以写一个递归来将它真正转换为```code```和```index```严格对应的形式，而不是现在这样的联合类型形式。
+
+但这里存在考量，因为数组顺序不一定一致。```surgeryStatus[0].dicCode```不一定是```0```。
+
+另外还有更简单的改法，那就是吧```DicItem```改成泛型。
 
 
 ---

@@ -218,7 +218,7 @@ ts默认不会读取.开头以及node_modules下的文件夹，所以.meepo会�
 
 下面这种写法肯定很常见：
 
-```javascript
+```javascript 
 const a = {}
 
 a.b = 1
