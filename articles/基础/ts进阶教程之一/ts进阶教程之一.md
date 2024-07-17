@@ -31,16 +31,22 @@ function identity3<T = 1>(arg: T): T {
 
 比如类型声明空间：
 
+
 ```typescript
 // 在调用函数时指定泛型参数 const b: Identity2 = (a) => a;
 interface Identity {
     <T>(arg: T): T;
 }
 
+// b<string>('1');
+// b('1');
+
 // 在定义函数时指定泛型参数 const a: Identity<number> = (a) => a;
 interface Identity2<T> {
     (arg: T): T;
 }
+
+//const b: Identity2<string> = (a) => a;
 
 // 在调用函数时指定泛型参数 const b: Identity2 = (a) => a;
 type Identity3 = <T>(arg: T) => T;
@@ -274,6 +280,8 @@ type EventConfig<Events extends { kind: string }> = {
 
 ## 交叉类型
 
+语义上，交叉类型指的是两个类型的合并。
+
 ```typescript
 interface A  {a: 1, b: 2};
 interface B  {a: 1, c: 4};
@@ -387,7 +395,7 @@ let location: B = new A(2, 2); // Ok
 
 ### 子类型
 
-子类型有两种，一种就是名义类型系统中的名义子类型，这种子类型就是两个类型之间通过显示的声明（比如继承）形成父子类型关系，这与里氏替换原则所表述得子类的实例可以赋值给父类的实例是一样的；
+子类型有两种，一种就是名义类型系统中的名义子类型，这种子类型就是两个类型之间通过显示的声明（比如继承）形成父子类型关系；
 
 另一种就是结构类型系统中的结构子类型，两个类型之间无需通过显示得声明，而是仅从结构上就可以形成父子类型关系。
 
@@ -401,11 +409,11 @@ const a: any = 1;
 
 无论是TS的规定，还是语义上的理解，它都是“兼容”的。
 
-但```number```明显不能说是```any```的子类型。
+但```number```不是```any```的子类型。
 
 只能说是可分配给```any```。
 
-### 结构化子类型
+### 结构子类型
 
 ```typescript
 interface Pet {
@@ -546,13 +554,15 @@ any = obj; // ok
 any = unkonw; // ok
 any = n; // ok
 any = voidVar; // ok
-any = nullVar; // ok
-any = undefinedVar; // ok
 ```
 
 ### unknow type
 
 ```unknow```可以接受任何类型，但它只能赋值给```any```。
+
+在考虑使用```any```类型之前，你应该优先考虑是否可以用```unkonw```类型代替。
+
+> ```unknown```类型代表任何值。这类似于```any```类型，但更安全，因为使用```unknown```值做任何事情都是不合法的。
 
 ```typescript
 unkonw = num; // ok
@@ -562,8 +572,6 @@ unkonw = obj; // ok
 unkonw = n; // ok
 unkonw = any; // ok
 unkonw = voidVar; // ok
-unkonw = nullVar; // ok
-unkonw = undefinedVar; // ok
 
 any = unkonw; // ok
 num = unkonw; // Error
@@ -579,6 +587,14 @@ undefinedVar = unkonw; // Error
 ### never type
 
 never是bottom type，可以接受任何类型，不能赋值给任何类型。
+
+语义上表示**从未观察到**的值的类型。
+
+比如函数中，永远不会正常返回（抛出错误或无限循环）。
+
+也用于表示不可能存在的类型场景，比如两个互斥类型的交集。
+
+> The never type represents values which are never observed. 
 
 ```typescript
 num = n; // ok
@@ -598,13 +614,11 @@ n = obj; // Error
 n = unkonw; // Error
 n = any; // Error
 n = voidVar; // Error
-n = nullVar; // Error
-n = undefinedVar; // Error
 ```
 
 ### void Type
 
-```strictNullChecks```配置未开启时，```null```类型的、```undefined```类型的变量可以分配给```void```类型的变量；
+```void```表示不返回值的函数的返回值，在js中是```undefined```，但在ts中它单独表示。
 
 ```typescript
 unkonw = voidVar; // ok
@@ -619,20 +633,13 @@ undefinedVar = voidVar; // Error
 
 voidVar = any; // ok
 voidVar = n; // ok
-voidVar = undefinedVar; // ok
 voidVar = num; // Error
 voidVar = str; // Error
 voidVar = bool; // Error
 voidVar = obj; // Error
 voidVar = unkonw; // Error
-voidVar = nullVar; // ok
 ```
 
-```strictNullChecks```配置开启时，```undefined```类型的变量可以分配给```void```类型的变量，```null```不行。
-
-```typescript
-voidVar = nullVar; // Error
-```
 
 ### strictNullChecks
 
@@ -642,9 +649,13 @@ strictNullChecks配置开启时，会对null和undefined进行严格检查。
 
 关闭时，null和undefined可以赋值给任何类型。
 
----
-如果有任何疑问或错误，欢迎留言进行提问或给予修正意见。
+### 非空断言运算符
 
-如果喜欢或对你有所帮助，欢迎Star[我的博客](https://github.com/wy2016xiao/blog)，对作者是一种鼓励和推进。
+断言该值不是```null```或```undefined```
 
-也欢迎关注[我的掘金](https://juejin.im/user/583bbd74ac502e006ea81f99)，浏览更多优质文章。
+```typescript
+function fn(x?: number | null) {
+  // No error
+  console.log(x!.toFixed());
+}
+```

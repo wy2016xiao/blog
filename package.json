@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "antd": "^3.26.20"
+  },
+  "dependencies": {
+    "typescript": "^5.5.3"
   }
 }

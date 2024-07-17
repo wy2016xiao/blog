@@ -8,6 +8,10 @@
 
 ## 配置文件说明
 
+当前的前端生态下，我们基本是不依靠t(j)sconfig.json文件的，因为大部分项目都是基于webpack/vite/rollup等打包工具的，他们有自己的配置文件。
+
+但vscode的部分插件功能是依赖t(j)sconfig.json文件的，包括类型检查、代码导航、智能感知等功能。
+
 以手术闭环项目为例，讲解配置文件的内容，可以快速熟悉ts相关配置：
 
 ```json
@@ -26,7 +30,7 @@
       "@utils/*": [".meepo/src/utils/*"]
     },
     "allowSyntheticDefaultImports": true,
-    // "allowJs": true,
+    "allowJs": true,
     "experimentalDecorators": true,
     "outDir": "."
   },
@@ -119,7 +123,7 @@ allowSyntheticDefaultImports
 
 控制ts编译器是否处理js文件。
 
-一般情况下都不需要配置为true，因为我们使用了babel等编译器。
+一般情况下都配置为true，因为这可以让vscode将window等全局类型定义附加给js文件中的变量。
 
 ### experimentalDecorators
 
@@ -252,6 +256,27 @@ a.b = 1;
 a.c = 'c';
 ```
 
+### 全局类型定义
+
+我们通常会有一些全局范围内使用的变量，会给它定义全局类型，这样可以不用哪儿哪儿都```import```引入类型，就能直接使用。
+
+通常情况下我们可以声明```.d.ts```文件，当ts编译器遇到这个文件时，会自动识别为全局类型定义。
+
+但这有一个前提条件，就是文件中不允许出现```import``` ```export```等关键字，否则会被识别为模块。
+
+但往往我们希望定义的全局文件也能通过```import```的方式引入，并暴露给全局。
+
+当我们使用```import```显式地将文件转为模块之后，类型声明需要改变一下。
+
+```typescript
+declare global {
+  interface IMyinterface {
+    a: number;
+  }
+}
+```
+
+这样就可以在全局范围内使用```IMyinterface```了。
 
 ---
 如果有任何疑问或错误，欢迎留言进行提问或给予修正意见。
