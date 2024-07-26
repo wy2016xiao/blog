@@ -7,7 +7,11 @@
 }
 ```
 
-### 注释提示
+### JsDoc提示
+
+vscode在很早就内置了JsDoc的支持，可以通过JsDoc来提供更多的信息。
+
+JsDoc本身是一个用扫描代码注释然后生成html文档网站的工具，但在vscode中，我们可以通过JsDoc来提供更多的信息，比如参数类型、返回值类型、参数说明等。
 
 #### 顶层提示
 
@@ -30,6 +34,43 @@ intelliSense
 #### 弃用
 
 ![alt text](image-3.png)
+
+#### param
+
+这个标签没有特殊视觉效果，但是可以在intelliSense中看到参数的类型和说明。
+
+对于复杂对象，可以用下面这种方式来写：
+
+```javascript
+/**
+ * 对象参数
+ * @param {Object} obj - hasdwegwedf
+ * @param {string} obj.name - aaaaaaa
+ * @param {string} obj.department - bbbbbbbbb
+ */
+function a(obj) {}
+```
+
+![alt text](image-9.png)
+
+
+数组：
+
+```javascript
+/**
+ * 数组参数
+ * @param {Object} arr - asdasdasdasd
+ * @param {string} arr[].name - aaaaaaaaa
+ * @param {string} arr[].b - bbbbbbbbbb
+ */
+function a(arr) {}
+```
+
+![alt text](image-10.png)
+
+可选参数：
+
+![alt text](image-11.png)
 
 ## meepo中的DTS文件
 
