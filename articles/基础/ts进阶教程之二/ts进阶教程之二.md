@@ -282,6 +282,139 @@ type SurgeryStatus = {
 
 另外还有更简单的改法，那就是吧```DicItem```改成泛型。
 
+## 配置文件说明
+
+当前的前端生态下，我们基本是不依靠t(j)sconfig.json文件的，因为大部分项目都是基于webpack/vite/rollup等打包工具的，他们有自己的配置文件。
+
+但vscode的部分插件功能是依赖t(j)sconfig.json文件的，包括类型检查、代码导航、智能感知等功能。
+
+以手术闭环项目为例，讲解配置文件的内容，可以快速熟悉ts相关配置：
+
+```json
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "root/*": ["src/*"],
+      "@utils/*": [".meepo/src/utils/*"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "outDir": "."
+  },
+  "exclude": ["dist", "**/*.spec.ts", "lib", "fixtures", "examples", "./*.js"],
+  "include": ["**/*", ".meepo/**/*.d.ts"]
+}
+```
+
+### target
+
+设定编译目标版本，也就是编译后的js代码版本
+
+#### 默认值
+ES3
+
+#### 示例
+es3 es5 es6 es2015 es2016 esnext
+
+### module
+
+指定生成的js代码使用哪个模块系统
+
+#### 默认值
+
+如果target是es3或者es5则为commonjs;
+
+否则为es6
+
+#### 示例
+
+none commonjs amd umd system es6 es2020 esnext node16 nodenext
+
+### moduleResolution
+
+指定ts编译器的模块解析策略
+
+#### 默认值
+
+如果module字段为AMD、UMD、System、es6，则为Classic;
+
+如果module字段为node16或者nodenext，则为node
+
+#### 示例
+
+classic node16 node10/node nodenext bundler
+
+### importHelpers
+
+是否引入降级操作。比如展开操作符、async关键字、extend关键字等。
+
+### jsx
+
+控制如何处理jsx代码。
+
+#### 示例
+
+preserve - 保留jsx代码，生成jsx文件
+
+react-native - 保留jsx代码，生成js文件
+
+react - jsx转译成React.createElement，生成js文件
+
+react-jsx - jsx转译成_jsx函数调用，生成js文件
+
+### esModuleInterop
+
+是否使用es module来导入CommonJS模块。
+
+默认值为false，在遇到CommonJS模块时，不能使用import a from 'a'的语法，要使用import * as a from 'a'的语法。
+
+### sourceMap
+
+是否生成sourceMap文件
+
+### baseUrl
+
+指定模块路径的基础路径。
+
+比如：baseUrl: './src'。那么在import {a} from "utils"将会被视为src/utils。
+
+### paths
+
+指定路径别名，它相对于baseUrl。
+
+allowSyntheticDefaultImports
+
+如果设置为true，即使模块没有export default，也可以写import a from 'a'，不用硬写import * as a from 'a'。
+
+### allowJs
+
+控制ts编译器是否处理js文件。
+
+一般情况下都配置为true，因为这可以让vscode将window等全局类型定义附加给js文件中的变量。
+
+### experimentalDecorators
+
+允许使用装饰器
+
+### outDir
+
+指定编译后的js输出位置
+
+### types
+
+控制允许全局使用的类型定义
+
+更多可以看文档：[TSConfig Reference](https://ts.nodejs.cn/tsconfig#references)
+
 
 ---
 如果有任何疑问或错误，欢迎留言进行提问或给予修正意见。
