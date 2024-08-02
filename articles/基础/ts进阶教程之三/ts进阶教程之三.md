@@ -7,6 +7,28 @@
 }
 ```
 
+### 模块类型增强
+
+你可以对某些第三方库的模块中的类型进行增强
+
+```typescript
+// global.ts
+declare module 'react-redux' {
+  interface DefaultRootState {
+    a: string;
+  }
+}
+
+// b.ts
+import { DefaultRootState } from 'react-redux';
+
+type A = DefaultRootState['a']; // string
+
+```
+
+![alt text](image-12.png)
+<!-- ![image-12.png](https://krseoul.imgtbl.com/i/2024/07/26/66a375a853c6e.png) -->
+
 ### JsDoc提示
 
 vscode在很早就内置了JsDoc的支持，可以通过JsDoc来提供更多的信息。
