@@ -377,6 +377,12 @@ load-nvmrc
 ```
 
 
+### 对象和枚举
+在现代 TypeScript 中，当具有 as const 的对象就足够时，你可能不需要枚举：
+![alt text](image-14.png)
+
+与 TypeScript 的 enum 相比，支持这种格式的最大参数是它使你的代码库与 JavaScript 的状态保持一致，并且 when/if 枚举被添加到 JavaScript，然后你可以转向其他语法。
+
 ---
 如果有任何疑问或错误，欢迎留言进行提问或给予修正意见。
 
