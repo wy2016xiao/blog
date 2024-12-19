@@ -381,7 +381,32 @@ load-nvmrc
 在现代 TypeScript 中，当具有 as const 的对象就足够时，你可能不需要枚举：
 ![alt text](image-14.png)
 
-与 TypeScript 的 enum 相比，支持这种格式的最大参数是它使你的代码库与 JavaScript 的状态保持一致，并且 when/if 枚举被添加到 JavaScript，然后你可以转向其他语法。
+与 TypeScript 的 enum 相比，使用对象字面量最大的优势是，你可以对其进行操作且轻易得到想要的值。
+
+思考下面这个场景：
+
+假设我有一个枚举`UserStatus`
+
+```typescript
+enum UserStatus {
+  /** 正常 */
+  NORMAL = 1,
+  /** 冻结 */
+  FROZEN = 2,
+  /** 删除 */
+  DELETED = 3,
+}
+```
+
+1.我需要一个数组，包含所有的状态值，用来做循环对比或别的什么操作。
+
+此时是无法通过`Object.values(UserStatus)`来获取的。
+
+```typescript
+const list1 = Object.values(UserStatus) // 结果是['NORMAL', 'FROZEN', 'DELETED', 1, 2, 3]
+```
+
+当然更不用说`const enum`了，`const enum`在编译后会被直接替换为常量，代码中不会存在`UserStatus`对象，所以除了`UserStatus.NORMAL`这种写法外，其他的函数对它都无效。
 
 ---
 如果有任何疑问或错误，欢迎留言进行提问或给予修正意见。
