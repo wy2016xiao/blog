@@ -381,6 +381,8 @@ load-nvmrc
 在现代 TypeScript 中，当具有 as const 的对象就足够时，你可能不需要枚举：
 ![alt text](image-14.png)
 
+![alt text](image-13.png)
+
 与 TypeScript 的 enum 相比，使用对象字面量最大的优势是，你可以对其进行操作且轻易得到想要的值。
 
 思考下面这个场景：
